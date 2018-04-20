@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.Riven.ssm.mapper.SysoptRecordMapper" >
+
+    <resultMap id="BaseResultMap" type="com.Riven.ssm.po.SysoptRecord" >
+        <id column="OPERATION_ID" property="operationId" jdbcType="DECIMAL" />
+        <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+        <result column="TIME" property="time" jdbcType="VARCHAR" />
+        <result column="DETAILS" property="details" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        OPERATION_ID, OPENID, TIME, DETAILS
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from SYSOPT_RECORD
+        where OPERATION_ID = #{operationId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from SYSOPT_RECORD
+        where OPERATION_ID = #{operationId,jdbcType=DECIMAL}
+    </delete>
+
+    <insert id="insert" parameterType="com.Riven.ssm.po.SysoptRecord" >
+        insert into SYSOPT_RECORD (OPERATION_ID, OPENID, TIME, 
+            DETAILS)
+        values (#{operationId,jdbcType=DECIMAL}, #{openid,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+            #{details,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.Riven.ssm.po.SysoptRecord" >
+        insert into SYSOPT_RECORD
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="operationId != null" >
+                OPERATION_ID,
+            </if>
+            <if test="openid != null" >
+                OPENID,
+            </if>
+            <if test="time != null" >
+                TIME,
+            </if>
+            <if test="details != null" >
+                DETAILS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="operationId != null" >
+                #{operationId,jdbcType=DECIMAL},
+            </if>
+            <if test="openid != null" >
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null" >
+                #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="details != null" >
+                #{details,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.Riven.ssm.po.SysoptRecord" >
+        update SYSOPT_RECORD
+        <set >
+            <if test="openid != null" >
+                OPENID = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null" >
+                TIME = #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="details != null" >
+                DETAILS = #{details,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where OPERATION_ID = #{operationId,jdbcType=DECIMAL}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.Riven.ssm.po.SysoptRecord" >
+        update SYSOPT_RECORD
+        set OPENID = #{openid,jdbcType=VARCHAR},
+            TIME = #{time,jdbcType=VARCHAR},
+            DETAILS = #{details,jdbcType=VARCHAR}
+        where OPERATION_ID = #{operationId,jdbcType=DECIMAL}
+    </update>
+</mapper>

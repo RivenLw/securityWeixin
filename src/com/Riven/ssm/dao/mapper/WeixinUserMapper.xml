@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.Riven.ssm.mapper.WeixinUserMapper" >
+
+    <resultMap id="BaseResultMap" type="com.Riven.ssm.po.WeixinUser" >
+        <id column="OPENID" property="openid" jdbcType="VARCHAR" />
+        <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+        <result column="SEX" property="sex" jdbcType="VARCHAR" />
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+        <result column="CITY" property="city" jdbcType="VARCHAR" />
+        <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+        <result column="HEADIMGURL" property="headimgurl" jdbcType="VARCHAR" />
+        <result column="PRIVILEGE" property="privilege" jdbcType="VARCHAR" />
+        <result column="UNIONID" property="unionid" jdbcType="VARCHAR" />
+        <result column="ADMIN" property="admin" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        OPENID, NICKNAME, SEX, PROVINCE, CITY, COUNTRY, HEADIMGURL, PRIVILEGE, UNIONID, ADMIN
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from WEIXIN_USER
+        where OPENID = #{openid,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from WEIXIN_USER
+        where OPENID = #{openid,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.Riven.ssm.po.WeixinUser" >
+        insert into WEIXIN_USER (OPENID, NICKNAME, SEX, 
+            PROVINCE, CITY, COUNTRY, 
+            HEADIMGURL, PRIVILEGE, UNIONID, 
+            ADMIN)
+        values (#{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+            #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+            #{headimgurl,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, 
+            #{admin,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.Riven.ssm.po.WeixinUser" >
+        insert into WEIXIN_USER
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="openid != null" >
+                OPENID,
+            </if>
+            <if test="nickname != null" >
+                NICKNAME,
+            </if>
+            <if test="sex != null" >
+                SEX,
+            </if>
+            <if test="province != null" >
+                PROVINCE,
+            </if>
+            <if test="city != null" >
+                CITY,
+            </if>
+            <if test="country != null" >
+                COUNTRY,
+            </if>
+            <if test="headimgurl != null" >
+                HEADIMGURL,
+            </if>
+            <if test="privilege != null" >
+                PRIVILEGE,
+            </if>
+            <if test="unionid != null" >
+                UNIONID,
+            </if>
+            <if test="admin != null" >
+                ADMIN,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="openid != null" >
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null" >
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null" >
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null" >
+                #{headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="privilege != null" >
+                #{privilege,jdbcType=VARCHAR},
+            </if>
+            <if test="unionid != null" >
+                #{unionid,jdbcType=VARCHAR},
+            </if>
+            <if test="admin != null" >
+                #{admin,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.Riven.ssm.po.WeixinUser" >
+        update WEIXIN_USER
+        <set >
+            <if test="nickname != null" >
+                NICKNAME = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                SEX = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                PROVINCE = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                CITY = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null" >
+                COUNTRY = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null" >
+                HEADIMGURL = #{headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="privilege != null" >
+                PRIVILEGE = #{privilege,jdbcType=VARCHAR},
+            </if>
+            <if test="unionid != null" >
+                UNIONID = #{unionid,jdbcType=VARCHAR},
+            </if>
+            <if test="admin != null" >
+                ADMIN = #{admin,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where OPENID = #{openid,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.Riven.ssm.po.WeixinUser" >
+        update WEIXIN_USER
+        set NICKNAME = #{nickname,jdbcType=VARCHAR},
+            SEX = #{sex,jdbcType=VARCHAR},
+            PROVINCE = #{province,jdbcType=VARCHAR},
+            CITY = #{city,jdbcType=VARCHAR},
+            COUNTRY = #{country,jdbcType=VARCHAR},
+            HEADIMGURL = #{headimgurl,jdbcType=VARCHAR},
+            PRIVILEGE = #{privilege,jdbcType=VARCHAR},
+            UNIONID = #{unionid,jdbcType=VARCHAR},
+            ADMIN = #{admin,jdbcType=VARCHAR}
+        where OPENID = #{openid,jdbcType=VARCHAR}
+    </update>
+</mapper>

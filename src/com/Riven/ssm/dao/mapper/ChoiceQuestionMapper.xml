@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.Riven.ssm.mapper.ChoiceQuestionMapper" >
+
+    <resultMap id="BaseResultMap" type="com.Riven.ssm.po.ChoiceQuestion" >
+        <id column="QUESTION_ID" property="questionId" jdbcType="DECIMAL" />
+        <result column="OPTION_A" property="optionA" jdbcType="VARCHAR" />
+        <result column="OPTION_B" property="optionB" jdbcType="VARCHAR" />
+        <result column="OPTION_C" property="optionC" jdbcType="VARCHAR" />
+        <result column="OPTION_D" property="optionD" jdbcType="VARCHAR" />
+        <result column="OPTION_E" property="optionE" jdbcType="VARCHAR" />
+        <result column="TRUEOPT" property="trueopt" jdbcType="VARCHAR" />
+        <result column="SOLUTION" property="solution" jdbcType="VARCHAR" />
+        <result column="ISDELETE" property="isdelete" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        QUESTION_ID, OPTION_A, OPTION_B, OPTION_C, OPTION_D, OPTION_E, TRUEOPT, SOLUTION, 
+        ISDELETE
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from CHOICE_QUESTION
+        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from CHOICE_QUESTION
+        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+    </delete>
+
+    <insert id="insert" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
+        insert into CHOICE_QUESTION (QUESTION_ID, OPTION_A, OPTION_B, 
+            OPTION_C, OPTION_D, OPTION_E, 
+            TRUEOPT, SOLUTION, ISDELETE
+            )
+        values (#{questionId,jdbcType=DECIMAL}, #{optionA,jdbcType=VARCHAR}, #{optionB,jdbcType=VARCHAR}, 
+            #{optionC,jdbcType=VARCHAR}, #{optionD,jdbcType=VARCHAR}, #{optionE,jdbcType=VARCHAR}, 
+            #{trueopt,jdbcType=VARCHAR}, #{solution,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
+        insert into CHOICE_QUESTION
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="questionId != null" >
+                QUESTION_ID,
+            </if>
+            <if test="optionA != null" >
+                OPTION_A,
+            </if>
+            <if test="optionB != null" >
+                OPTION_B,
+            </if>
+            <if test="optionC != null" >
+                OPTION_C,
+            </if>
+            <if test="optionD != null" >
+                OPTION_D,
+            </if>
+            <if test="optionE != null" >
+                OPTION_E,
+            </if>
+            <if test="trueopt != null" >
+                TRUEOPT,
+            </if>
+            <if test="solution != null" >
+                SOLUTION,
+            </if>
+            <if test="isdelete != null" >
+                ISDELETE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="questionId != null" >
+                #{questionId,jdbcType=DECIMAL},
+            </if>
+            <if test="optionA != null" >
+                #{optionA,jdbcType=VARCHAR},
+            </if>
+            <if test="optionB != null" >
+                #{optionB,jdbcType=VARCHAR},
+            </if>
+            <if test="optionC != null" >
+                #{optionC,jdbcType=VARCHAR},
+            </if>
+            <if test="optionD != null" >
+                #{optionD,jdbcType=VARCHAR},
+            </if>
+            <if test="optionE != null" >
+                #{optionE,jdbcType=VARCHAR},
+            </if>
+            <if test="trueopt != null" >
+                #{trueopt,jdbcType=VARCHAR},
+            </if>
+            <if test="solution != null" >
+                #{solution,jdbcType=VARCHAR},
+            </if>
+            <if test="isdelete != null" >
+                #{isdelete,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
+        update CHOICE_QUESTION
+        <set >
+            <if test="optionA != null" >
+                OPTION_A = #{optionA,jdbcType=VARCHAR},
+            </if>
+            <if test="optionB != null" >
+                OPTION_B = #{optionB,jdbcType=VARCHAR},
+            </if>
+            <if test="optionC != null" >
+                OPTION_C = #{optionC,jdbcType=VARCHAR},
+            </if>
+            <if test="optionD != null" >
+                OPTION_D = #{optionD,jdbcType=VARCHAR},
+            </if>
+            <if test="optionE != null" >
+                OPTION_E = #{optionE,jdbcType=VARCHAR},
+            </if>
+            <if test="trueopt != null" >
+                TRUEOPT = #{trueopt,jdbcType=VARCHAR},
+            </if>
+            <if test="solution != null" >
+                SOLUTION = #{solution,jdbcType=VARCHAR},
+            </if>
+            <if test="isdelete != null" >
+                ISDELETE = #{isdelete,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
+        update CHOICE_QUESTION
+        set OPTION_A = #{optionA,jdbcType=VARCHAR},
+            OPTION_B = #{optionB,jdbcType=VARCHAR},
+            OPTION_C = #{optionC,jdbcType=VARCHAR},
+            OPTION_D = #{optionD,jdbcType=VARCHAR},
+            OPTION_E = #{optionE,jdbcType=VARCHAR},
+            TRUEOPT = #{trueopt,jdbcType=VARCHAR},
+            SOLUTION = #{solution,jdbcType=VARCHAR},
+            ISDELETE = #{isdelete,jdbcType=VARCHAR}
+        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+    </update>
+</mapper>
