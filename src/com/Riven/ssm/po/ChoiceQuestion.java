@@ -5,10 +5,10 @@ package com.Riven.ssm.po;
  * 
  * @author wcyong
  * 
- * @date 2018-04-18
+ * @date 2018-04-21
  */
 public class ChoiceQuestion {
-    private Integer questionId;
+    private String questionId;
 
     private String optionA;
 
@@ -26,12 +26,12 @@ public class ChoiceQuestion {
 
     private String isdelete;
 
-    public Integer getQuestionId() {
+    public String getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId == null ? null : questionId.trim();
     }
 
     public String getOptionA() {

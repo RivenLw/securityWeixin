@@ -5,7 +5,7 @@ package com.Riven.ssm.po;
  * 
  * @author wcyong
  * 
- * @date 2018-04-18
+ * @date 2018-04-21
  */
 public class SysoptRecord {
     private Integer operationId;

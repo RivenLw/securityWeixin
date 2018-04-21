@@ -68,7 +68,7 @@ public class SysoptRecordExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-04-18
+     * @date 2018-04-21
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -394,7 +394,7 @@ public class SysoptRecordExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-04-18
+     * @date 2018-04-21
      */
     public static class Criterion {
         private String condition;

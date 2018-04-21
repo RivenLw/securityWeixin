@@ -3,7 +3,7 @@
 <mapper namespace="com.Riven.ssm.mapper.ChoiceQuestionMapper" >
 
     <resultMap id="BaseResultMap" type="com.Riven.ssm.po.ChoiceQuestion" >
-        <id column="QUESTION_ID" property="questionId" jdbcType="DECIMAL" />
+        <id column="QUESTION_ID" property="questionId" jdbcType="VARCHAR" />
         <result column="OPTION_A" property="optionA" jdbcType="VARCHAR" />
         <result column="OPTION_B" property="optionB" jdbcType="VARCHAR" />
         <result column="OPTION_C" property="optionC" jdbcType="VARCHAR" />
@@ -14,21 +14,103 @@
         <result column="ISDELETE" property="isdelete" jdbcType="VARCHAR" />
     </resultMap>
 
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="Base_Column_List" >
         QUESTION_ID, OPTION_A, OPTION_B, OPTION_C, OPTION_D, OPTION_E, TRUEOPT, SOLUTION, 
         ISDELETE
     </sql>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.ChoiceQuestionExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from CHOICE_QUESTION
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
         <include refid="Base_Column_List" />
         from CHOICE_QUESTION
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
         delete from CHOICE_QUESTION
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.Riven.ssm.po.ChoiceQuestionExample" >
+        delete from CHOICE_QUESTION
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
     </delete>
 
     <insert id="insert" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
@@ -36,7 +118,7 @@
             OPTION_C, OPTION_D, OPTION_E, 
             TRUEOPT, SOLUTION, ISDELETE
             )
-        values (#{questionId,jdbcType=DECIMAL}, #{optionA,jdbcType=VARCHAR}, #{optionB,jdbcType=VARCHAR}, 
+        values ('XZ'||to_char(Sequence_choice.nextval), #{optionA,jdbcType=VARCHAR}, #{optionB,jdbcType=VARCHAR}, 
             #{optionC,jdbcType=VARCHAR}, #{optionD,jdbcType=VARCHAR}, #{optionE,jdbcType=VARCHAR}, 
             #{trueopt,jdbcType=VARCHAR}, #{solution,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR}
             )
@@ -45,7 +127,7 @@
     <insert id="insertSelective" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
         insert into CHOICE_QUESTION
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="questionId != null" >
+            <if test="questionId == null" >
                 QUESTION_ID,
             </if>
             <if test="optionA != null" >
@@ -74,8 +156,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="questionId != null" >
-                #{questionId,jdbcType=DECIMAL},
+            <if test="questionId == null" >
+                'XZ'||to_char(Sequence_choice.nextval),
             </if>
             <if test="optionA != null" >
                 #{optionA,jdbcType=VARCHAR},
@@ -103,6 +185,65 @@
             </if>
         </trim>
     </insert>
+
+    <select id="countByExample" parameterType="com.Riven.ssm.po.ChoiceQuestionExample" resultType="java.lang.Integer" >
+        select count(*) from CHOICE_QUESTION
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update CHOICE_QUESTION
+        <set >
+            <if test="record.questionId != null" >
+                QUESTION_ID = #{record.questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionA != null" >
+                OPTION_A = #{record.optionA,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionB != null" >
+                OPTION_B = #{record.optionB,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionC != null" >
+                OPTION_C = #{record.optionC,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionD != null" >
+                OPTION_D = #{record.optionD,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionE != null" >
+                OPTION_E = #{record.optionE,jdbcType=VARCHAR},
+            </if>
+            <if test="record.trueopt != null" >
+                TRUEOPT = #{record.trueopt,jdbcType=VARCHAR},
+            </if>
+            <if test="record.solution != null" >
+                SOLUTION = #{record.solution,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isdelete != null" >
+                ISDELETE = #{record.isdelete,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update CHOICE_QUESTION
+        set QUESTION_ID = #{record.questionId,jdbcType=VARCHAR},
+            OPTION_A = #{record.optionA,jdbcType=VARCHAR},
+            OPTION_B = #{record.optionB,jdbcType=VARCHAR},
+            OPTION_C = #{record.optionC,jdbcType=VARCHAR},
+            OPTION_D = #{record.optionD,jdbcType=VARCHAR},
+            OPTION_E = #{record.optionE,jdbcType=VARCHAR},
+            TRUEOPT = #{record.trueopt,jdbcType=VARCHAR},
+            SOLUTION = #{record.solution,jdbcType=VARCHAR},
+            ISDELETE = #{record.isdelete,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
         update CHOICE_QUESTION
@@ -132,7 +273,7 @@
                 ISDELETE = #{isdelete,jdbcType=VARCHAR},
             </if>
         </set>
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
@@ -145,6 +286,6 @@
             TRUEOPT = #{trueopt,jdbcType=VARCHAR},
             SOLUTION = #{solution,jdbcType=VARCHAR},
             ISDELETE = #{isdelete,jdbcType=VARCHAR}
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </update>
 </mapper>

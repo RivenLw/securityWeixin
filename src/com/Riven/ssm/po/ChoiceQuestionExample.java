@@ -68,7 +68,7 @@ public class ChoiceQuestionExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-04-18
+     * @date 2018-04-21
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -121,52 +121,62 @@ public class ChoiceQuestionExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdEqualTo(Integer value) {
+        public Criteria andQuestionIdEqualTo(String value) {
             addCriterion("QUESTION_ID =", value, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdNotEqualTo(Integer value) {
+        public Criteria andQuestionIdNotEqualTo(String value) {
             addCriterion("QUESTION_ID <>", value, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdGreaterThan(Integer value) {
+        public Criteria andQuestionIdGreaterThan(String value) {
             addCriterion("QUESTION_ID >", value, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andQuestionIdGreaterThanOrEqualTo(String value) {
             addCriterion("QUESTION_ID >=", value, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdLessThan(Integer value) {
+        public Criteria andQuestionIdLessThan(String value) {
             addCriterion("QUESTION_ID <", value, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdLessThanOrEqualTo(Integer value) {
+        public Criteria andQuestionIdLessThanOrEqualTo(String value) {
             addCriterion("QUESTION_ID <=", value, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdIn(List<Integer> values) {
+        public Criteria andQuestionIdLike(String value) {
+            addCriterion("QUESTION_ID like", value, "questionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionIdNotLike(String value) {
+            addCriterion("QUESTION_ID not like", value, "questionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionIdIn(List<String> values) {
             addCriterion("QUESTION_ID in", values, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdNotIn(List<Integer> values) {
+        public Criteria andQuestionIdNotIn(List<String> values) {
             addCriterion("QUESTION_ID not in", values, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdBetween(Integer value1, Integer value2) {
+        public Criteria andQuestionIdBetween(String value1, String value2) {
             addCriterion("QUESTION_ID between", value1, value2, "questionId");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andQuestionIdNotBetween(String value1, String value2) {
             addCriterion("QUESTION_ID not between", value1, value2, "questionId");
             return (Criteria) this;
         }
@@ -744,7 +754,7 @@ public class ChoiceQuestionExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-04-18
+     * @date 2018-04-21
      */
     public static class Criterion {
         private String condition;

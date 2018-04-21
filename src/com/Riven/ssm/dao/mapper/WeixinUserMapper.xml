@@ -15,9 +15,84 @@
         <result column="ADMIN" property="admin" jdbcType="VARCHAR" />
     </resultMap>
 
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="Base_Column_List" >
         OPENID, NICKNAME, SEX, PROVINCE, CITY, COUNTRY, HEADIMGURL, PRIVILEGE, UNIONID, ADMIN
     </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.WeixinUserExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from WEIXIN_USER
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
@@ -29,6 +104,13 @@
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
         delete from WEIXIN_USER
         where OPENID = #{openid,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.Riven.ssm.po.WeixinUserExample" >
+        delete from WEIXIN_USER
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
     </delete>
 
     <insert id="insert" parameterType="com.Riven.ssm.po.WeixinUser" >
@@ -109,6 +191,69 @@
             </if>
         </trim>
     </insert>
+
+    <select id="countByExample" parameterType="com.Riven.ssm.po.WeixinUserExample" resultType="java.lang.Integer" >
+        select count(*) from WEIXIN_USER
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update WEIXIN_USER
+        <set >
+            <if test="record.openid != null" >
+                OPENID = #{record.openid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nickname != null" >
+                NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sex != null" >
+                SEX = #{record.sex,jdbcType=VARCHAR},
+            </if>
+            <if test="record.province != null" >
+                PROVINCE = #{record.province,jdbcType=VARCHAR},
+            </if>
+            <if test="record.city != null" >
+                CITY = #{record.city,jdbcType=VARCHAR},
+            </if>
+            <if test="record.country != null" >
+                COUNTRY = #{record.country,jdbcType=VARCHAR},
+            </if>
+            <if test="record.headimgurl != null" >
+                HEADIMGURL = #{record.headimgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.privilege != null" >
+                PRIVILEGE = #{record.privilege,jdbcType=VARCHAR},
+            </if>
+            <if test="record.unionid != null" >
+                UNIONID = #{record.unionid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.admin != null" >
+                ADMIN = #{record.admin,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update WEIXIN_USER
+        set OPENID = #{record.openid,jdbcType=VARCHAR},
+            NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+            SEX = #{record.sex,jdbcType=VARCHAR},
+            PROVINCE = #{record.province,jdbcType=VARCHAR},
+            CITY = #{record.city,jdbcType=VARCHAR},
+            COUNTRY = #{record.country,jdbcType=VARCHAR},
+            HEADIMGURL = #{record.headimgurl,jdbcType=VARCHAR},
+            PRIVILEGE = #{record.privilege,jdbcType=VARCHAR},
+            UNIONID = #{record.unionid,jdbcType=VARCHAR},
+            ADMIN = #{record.admin,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.Riven.ssm.po.WeixinUser" >
         update WEIXIN_USER

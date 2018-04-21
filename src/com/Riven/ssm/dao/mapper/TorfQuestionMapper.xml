@@ -3,40 +3,122 @@
 <mapper namespace="com.Riven.ssm.mapper.TorfQuestionMapper" >
 
     <resultMap id="BaseResultMap" type="com.Riven.ssm.po.TorfQuestion" >
-        <id column="QUESTION_ID" property="questionId" jdbcType="DECIMAL" />
+        <id column="QUESTION_ID" property="questionId" jdbcType="VARCHAR" />
         <result column="QUESTION_CONTENT" property="questionContent" jdbcType="VARCHAR" />
         <result column="ANSWER" property="answer" jdbcType="VARCHAR" />
         <result column="SOLUTION" property="solution" jdbcType="VARCHAR" />
         <result column="ISDELETE" property="isdelete" jdbcType="VARCHAR" />
     </resultMap>
 
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
     <sql id="Base_Column_List" >
         QUESTION_ID, QUESTION_CONTENT, ANSWER, SOLUTION, ISDELETE
     </sql>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.TorfQuestionExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from TORF_QUESTION
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select 
         <include refid="Base_Column_List" />
         from TORF_QUESTION
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
         delete from TORF_QUESTION
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.Riven.ssm.po.TorfQuestionExample" >
+        delete from TORF_QUESTION
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
     </delete>
 
     <insert id="insert" parameterType="com.Riven.ssm.po.TorfQuestion" >
         insert into TORF_QUESTION (QUESTION_ID, QUESTION_CONTENT, ANSWER, 
             SOLUTION, ISDELETE)
-        values (#{questionId,jdbcType=DECIMAL}, #{questionContent,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+        values ('PD'||to_char(Sequence_torf.nextval), #{questionContent,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
             #{solution,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.Riven.ssm.po.TorfQuestion" >
         insert into TORF_QUESTION
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="questionId != null" >
+            <if test="questionId == null" >
                 QUESTION_ID,
             </if>
             <if test="questionContent != null" >
@@ -53,8 +135,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="questionId != null" >
-                #{questionId,jdbcType=DECIMAL},
+            <if test="questionId == null" >
+                'PD'||to_char(Sequence_torf.nextval),
             </if>
             <if test="questionContent != null" >
                 #{questionContent,jdbcType=VARCHAR},
@@ -70,6 +152,49 @@
             </if>
         </trim>
     </insert>
+
+    <select id="countByExample" parameterType="com.Riven.ssm.po.TorfQuestionExample" resultType="java.lang.Integer" >
+        select count(*) from TORF_QUESTION
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update TORF_QUESTION
+        <set >
+            <if test="record.questionId != null" >
+                QUESTION_ID = #{record.questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.questionContent != null" >
+                QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR},
+            </if>
+            <if test="record.answer != null" >
+                ANSWER = #{record.answer,jdbcType=VARCHAR},
+            </if>
+            <if test="record.solution != null" >
+                SOLUTION = #{record.solution,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isdelete != null" >
+                ISDELETE = #{record.isdelete,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update TORF_QUESTION
+        set QUESTION_ID = #{record.questionId,jdbcType=VARCHAR},
+            QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR},
+            ANSWER = #{record.answer,jdbcType=VARCHAR},
+            SOLUTION = #{record.solution,jdbcType=VARCHAR},
+            ISDELETE = #{record.isdelete,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.Riven.ssm.po.TorfQuestion" >
         update TORF_QUESTION
@@ -87,7 +212,7 @@
                 ISDELETE = #{isdelete,jdbcType=VARCHAR},
             </if>
         </set>
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.Riven.ssm.po.TorfQuestion" >
@@ -96,6 +221,6 @@
             ANSWER = #{answer,jdbcType=VARCHAR},
             SOLUTION = #{solution,jdbcType=VARCHAR},
             ISDELETE = #{isdelete,jdbcType=VARCHAR}
-        where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+        where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </update>
 </mapper>
