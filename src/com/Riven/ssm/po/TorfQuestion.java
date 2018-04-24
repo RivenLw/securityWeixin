@@ -57,4 +57,10 @@ public class TorfQuestion {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
+
+	@Override
+	public String toString() {
+		return "TorfQuestion [questionId=" + questionId + ", questionContent=" + questionContent + ", answer=" + answer
+				+ ", solution=" + solution + ", isdelete=" + isdelete + "]";
+	}
 }

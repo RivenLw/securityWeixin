@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.Riven.ssm.mapper.TorfQuestionMapper" >
+<mapper namespace="com.Riven.ssm.dao.mapper.TorfQuestionMapper" >
 
     <resultMap id="BaseResultMap" type="com.Riven.ssm.po.TorfQuestion" >
         <id column="QUESTION_ID" property="questionId" jdbcType="VARCHAR" />

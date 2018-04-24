@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.Riven.ssm.mapper.SysoptRecordMapper" >
+<mapper namespace="com.Riven.ssm.dao.mapper.SysoptRecordMapper" >
 
     <resultMap id="BaseResultMap" type="com.Riven.ssm.po.SysoptRecord" >
         <id column="OPERATION_ID" property="operationId" jdbcType="DECIMAL" />
         <result column="OPENID" property="openid" jdbcType="VARCHAR" />
         <result column="TIME" property="time" jdbcType="VARCHAR" />
         <result column="DETAILS" property="details" jdbcType="VARCHAR" />
+        <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Example_Where_Clause" >
@@ -70,7 +71,7 @@
     </sql>
 
     <sql id="Base_Column_List" >
-        OPERATION_ID, OPENID, TIME, DETAILS
+        OPERATION_ID, OPENID, TIME, DETAILS, NICKNAME
     </sql>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.SysoptRecordExample" >
@@ -109,9 +110,9 @@
 
     <insert id="insert" parameterType="com.Riven.ssm.po.SysoptRecord" >
         insert into SYSOPT_RECORD (OPERATION_ID, OPENID, TIME, 
-            DETAILS)
+            DETAILS, NICKNAME)
         values (#{operationId,jdbcType=DECIMAL}, #{openid,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
-            #{details,jdbcType=VARCHAR})
+            #{details,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.Riven.ssm.po.SysoptRecord" >
@@ -129,6 +130,9 @@
             <if test="details != null" >
                 DETAILS,
             </if>
+            <if test="nickname != null" >
+                NICKNAME,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="operationId != null" >
@@ -142,6 +146,9 @@
             </if>
             <if test="details != null" >
                 #{details,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null" >
+                #{nickname,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -168,6 +175,9 @@
             <if test="record.details != null" >
                 DETAILS = #{record.details,jdbcType=VARCHAR},
             </if>
+            <if test="record.nickname != null" >
+                NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+            </if>
         </set>
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
@@ -179,7 +189,8 @@
         set OPERATION_ID = #{record.operationId,jdbcType=DECIMAL},
             OPENID = #{record.openid,jdbcType=VARCHAR},
             TIME = #{record.time,jdbcType=VARCHAR},
-            DETAILS = #{record.details,jdbcType=VARCHAR}
+            DETAILS = #{record.details,jdbcType=VARCHAR},
+            NICKNAME = #{record.nickname,jdbcType=VARCHAR}
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
         </if>
@@ -197,6 +208,9 @@
             <if test="details != null" >
                 DETAILS = #{details,jdbcType=VARCHAR},
             </if>
+            <if test="nickname != null" >
+                NICKNAME = #{nickname,jdbcType=VARCHAR},
+            </if>
         </set>
         where OPERATION_ID = #{operationId,jdbcType=DECIMAL}
     </update>
@@ -205,7 +219,8 @@
         update SYSOPT_RECORD
         set OPENID = #{openid,jdbcType=VARCHAR},
             TIME = #{time,jdbcType=VARCHAR},
-            DETAILS = #{details,jdbcType=VARCHAR}
+            DETAILS = #{details,jdbcType=VARCHAR},
+            NICKNAME = #{nickname,jdbcType=VARCHAR}
         where OPERATION_ID = #{operationId,jdbcType=DECIMAL}
     </update>
 </mapper>

@@ -5,7 +5,7 @@ package com.Riven.ssm.po;
  * 
  * @author wcyong
  * 
- * @date 2018-04-21
+ * @date 2018-04-24
  */
 public class AnswerRecord {
     private Integer recordId;
@@ -25,6 +25,8 @@ public class AnswerRecord {
     private String answerStatus;
 
     private String recordStatus;
+
+    private String nickname;
 
     public Integer getRecordId() {
         return recordId;
@@ -96,5 +98,13 @@ public class AnswerRecord {
 
     public void setRecordStatus(String recordStatus) {
         this.recordStatus = recordStatus == null ? null : recordStatus.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 }

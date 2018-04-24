@@ -5,7 +5,7 @@ package com.Riven.ssm.po;
  * 
  * @author wcyong
  * 
- * @date 2018-04-21
+ * @date 2018-04-24
  */
 public class SysoptRecord {
     private Integer operationId;
@@ -15,6 +15,8 @@ public class SysoptRecord {
     private String time;
 
     private String details;
+
+    private String nickname;
 
     public Integer getOperationId() {
         return operationId;
@@ -46,5 +48,13 @@ public class SysoptRecord {
 
     public void setDetails(String details) {
         this.details = details == null ? null : details.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 }

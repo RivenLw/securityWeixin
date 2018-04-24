@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.Riven.ssm.mapper.WeixinUserMapper" >
+<mapper namespace="com.Riven.ssm.dao.mapper.WeixinUserMapper" >
 
     <resultMap id="BaseResultMap" type="com.Riven.ssm.po.WeixinUser" >
         <id column="OPENID" property="openid" jdbcType="VARCHAR" />

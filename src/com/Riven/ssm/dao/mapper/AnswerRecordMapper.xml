@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.Riven.ssm.mapper.AnswerRecordMapper" >
+<mapper namespace="com.Riven.ssm.dao.mapper.AnswerRecordMapper" >
 
     <resultMap id="BaseResultMap" type="com.Riven.ssm.po.AnswerRecord" >
         <id column="RECORD_ID" property="recordId" jdbcType="DECIMAL" />
@@ -12,6 +12,7 @@
         <result column="FALSE_QUESTION" property="falseQuestion" jdbcType="VARCHAR" />
         <result column="ANSWER_STATUS" property="answerStatus" jdbcType="VARCHAR" />
         <result column="RECORD_STATUS" property="recordStatus" jdbcType="VARCHAR" />
+        <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Example_Where_Clause" >
@@ -76,7 +77,7 @@
 
     <sql id="Base_Column_List" >
         RECORD_ID, OPENID, START_TIME, END_TIME, QUESTION_SUM, TRUE_QUESTIONS, FALSE_QUESTION, 
-        ANSWER_STATUS, RECORD_STATUS
+        ANSWER_STATUS, RECORD_STATUS, NICKNAME
     </sql>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.AnswerRecordExample" >
@@ -116,12 +117,12 @@
     <insert id="insert" parameterType="com.Riven.ssm.po.AnswerRecord" >
         insert into ANSWER_RECORD (RECORD_ID, OPENID, START_TIME, 
             END_TIME, QUESTION_SUM, TRUE_QUESTIONS, 
-            FALSE_QUESTION, ANSWER_STATUS, RECORD_STATUS
-            )
+            FALSE_QUESTION, ANSWER_STATUS, RECORD_STATUS, 
+            NICKNAME)
         values (#{recordId,jdbcType=DECIMAL}, #{openid,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
             #{endTime,jdbcType=VARCHAR}, #{questionSum,jdbcType=VARCHAR}, #{trueQuestions,jdbcType=VARCHAR}, 
-            #{falseQuestion,jdbcType=VARCHAR}, #{answerStatus,jdbcType=VARCHAR}, #{recordStatus,jdbcType=VARCHAR}
-            )
+            #{falseQuestion,jdbcType=VARCHAR}, #{answerStatus,jdbcType=VARCHAR}, #{recordStatus,jdbcType=VARCHAR}, 
+            #{nickname,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.Riven.ssm.po.AnswerRecord" >
@@ -154,6 +155,9 @@
             <if test="recordStatus != null" >
                 RECORD_STATUS,
             </if>
+            <if test="nickname != null" >
+                NICKNAME,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="recordId != null" >
@@ -182,6 +186,9 @@
             </if>
             <if test="recordStatus != null" >
                 #{recordStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null" >
+                #{nickname,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -223,6 +230,9 @@
             <if test="record.recordStatus != null" >
                 RECORD_STATUS = #{record.recordStatus,jdbcType=VARCHAR},
             </if>
+            <if test="record.nickname != null" >
+                NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+            </if>
         </set>
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
@@ -239,7 +249,8 @@
             TRUE_QUESTIONS = #{record.trueQuestions,jdbcType=VARCHAR},
             FALSE_QUESTION = #{record.falseQuestion,jdbcType=VARCHAR},
             ANSWER_STATUS = #{record.answerStatus,jdbcType=VARCHAR},
-            RECORD_STATUS = #{record.recordStatus,jdbcType=VARCHAR}
+            RECORD_STATUS = #{record.recordStatus,jdbcType=VARCHAR},
+            NICKNAME = #{record.nickname,jdbcType=VARCHAR}
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
         </if>
@@ -272,6 +283,9 @@
             <if test="recordStatus != null" >
                 RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR},
             </if>
+            <if test="nickname != null" >
+                NICKNAME = #{nickname,jdbcType=VARCHAR},
+            </if>
         </set>
         where RECORD_ID = #{recordId,jdbcType=DECIMAL}
     </update>
@@ -285,7 +299,8 @@
             TRUE_QUESTIONS = #{trueQuestions,jdbcType=VARCHAR},
             FALSE_QUESTION = #{falseQuestion,jdbcType=VARCHAR},
             ANSWER_STATUS = #{answerStatus,jdbcType=VARCHAR},
-            RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR}
+            RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR},
+            NICKNAME = #{nickname,jdbcType=VARCHAR}
         where RECORD_ID = #{recordId,jdbcType=DECIMAL}
     </update>
 </mapper>
