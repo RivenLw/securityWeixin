@@ -5,7 +5,7 @@ package com.Riven.ssm.po;
  * 
  * @author wcyong
  * 
- * @date 2018-04-21
+ * @date 2018-04-25
  */
 public class ChoiceQuestion {
     private String questionId;
@@ -25,6 +25,8 @@ public class ChoiceQuestion {
     private String solution;
 
     private String isdelete;
+
+    private String questionContent;
 
     public String getQuestionId() {
         return questionId;
@@ -97,4 +99,19 @@ public class ChoiceQuestion {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
+
+    public String getQuestionContent() {
+        return questionContent;
+    }
+
+    public void setQuestionContent(String questionContent) {
+        this.questionContent = questionContent == null ? null : questionContent.trim();
+    }
+
+	@Override
+	public String toString() {
+		return "ChoiceQuestion [questionId=" + questionId + ", optionA=" + optionA + ", optionB=" + optionB
+				+ ", optionC=" + optionC + ", optionD=" + optionD + ", optionE=" + optionE + ", trueopt=" + trueopt
+				+ ", solution=" + solution + ", isdelete=" + isdelete + ", questionContent=" + questionContent + "]";
+	}
 }

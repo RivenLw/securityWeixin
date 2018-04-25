@@ -12,6 +12,7 @@
         <result column="TRUEOPT" property="trueopt" jdbcType="VARCHAR" />
         <result column="SOLUTION" property="solution" jdbcType="VARCHAR" />
         <result column="ISDELETE" property="isdelete" jdbcType="VARCHAR" />
+        <result column="QUESTION_CONTENT" property="questionContent" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Example_Where_Clause" >
@@ -76,7 +77,7 @@
 
     <sql id="Base_Column_List" >
         QUESTION_ID, OPTION_A, OPTION_B, OPTION_C, OPTION_D, OPTION_E, TRUEOPT, SOLUTION, 
-        ISDELETE
+        ISDELETE, QUESTION_CONTENT
     </sql>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.ChoiceQuestionExample" >
@@ -116,12 +117,12 @@
     <insert id="insert" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
         insert into CHOICE_QUESTION (QUESTION_ID, OPTION_A, OPTION_B, 
             OPTION_C, OPTION_D, OPTION_E, 
-            TRUEOPT, SOLUTION, ISDELETE
-            )
+            TRUEOPT, SOLUTION, ISDELETE, 
+            QUESTION_CONTENT)
         values ('XZ'||to_char(Sequence_choice.nextval), #{optionA,jdbcType=VARCHAR}, #{optionB,jdbcType=VARCHAR}, 
             #{optionC,jdbcType=VARCHAR}, #{optionD,jdbcType=VARCHAR}, #{optionE,jdbcType=VARCHAR}, 
-            #{trueopt,jdbcType=VARCHAR}, #{solution,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR}
-            )
+            #{trueopt,jdbcType=VARCHAR}, #{solution,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR}, 
+            #{questionContent,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.Riven.ssm.po.ChoiceQuestion" >
@@ -154,6 +155,9 @@
             <if test="isdelete != null" >
                 ISDELETE,
             </if>
+            <if test="questionContent != null" >
+                QUESTION_CONTENT,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="questionId == null" >
@@ -182,6 +186,9 @@
             </if>
             <if test="isdelete != null" >
                 #{isdelete,jdbcType=VARCHAR},
+            </if>
+            <if test="questionContent != null" >
+                #{questionContent,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -223,6 +230,9 @@
             <if test="record.isdelete != null" >
                 ISDELETE = #{record.isdelete,jdbcType=VARCHAR},
             </if>
+            <if test="record.questionContent != null" >
+                QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR},
+            </if>
         </set>
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
@@ -239,7 +249,8 @@
             OPTION_E = #{record.optionE,jdbcType=VARCHAR},
             TRUEOPT = #{record.trueopt,jdbcType=VARCHAR},
             SOLUTION = #{record.solution,jdbcType=VARCHAR},
-            ISDELETE = #{record.isdelete,jdbcType=VARCHAR}
+            ISDELETE = #{record.isdelete,jdbcType=VARCHAR},
+            QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR}
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
         </if>
@@ -272,6 +283,9 @@
             <if test="isdelete != null" >
                 ISDELETE = #{isdelete,jdbcType=VARCHAR},
             </if>
+            <if test="questionContent != null" >
+                QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR},
+            </if>
         </set>
         where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </update>
@@ -285,7 +299,8 @@
             OPTION_E = #{optionE,jdbcType=VARCHAR},
             TRUEOPT = #{trueopt,jdbcType=VARCHAR},
             SOLUTION = #{solution,jdbcType=VARCHAR},
-            ISDELETE = #{isdelete,jdbcType=VARCHAR}
+            ISDELETE = #{isdelete,jdbcType=VARCHAR},
+            QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR}
         where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
     </update>
 </mapper>

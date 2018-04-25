@@ -18,5 +18,11 @@
 <!-- weixin用户管理的service -->
  <bean id="weixinUserService" class="com.Riven.ssm.service.impl.WeixinUserServiceImpl"/>
 <!-- 答题记录管理的service -->
- <bean id="answerRecordService" class="com.Riven.ssm.service.impl.answerRecordServiceImpl"/>
+ <bean id="answerRecordService" class="com.Riven.ssm.service.impl.AnswerRecordServiceImpl"/>
+<!-- 选择题管理的service -->
+ <bean id="choiceQuestionService" class="com.Riven.ssm.service.impl.ChoiceQuestionServiceImpl"/>
+<!-- 判断题管理的service -->
+ <bean id="torfQuestionService" class="com.Riven.ssm.service.impl.TorfQuestionServiceImpl"/>
+<!-- 系统操作记录管理的service -->
+ <bean id="sysoptRecordService" class="com.Riven.ssm.service.impl.SysoptRecordServiceImpl"/>
 </beans>

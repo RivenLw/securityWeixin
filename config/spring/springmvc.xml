@@ -16,24 +16,23 @@
 	<!-- 组件扫描 扫描的标记@Controller注解的类，通过组件扫描将Controller注解的类发现，注入到spring容器 -->
 	<context:component-scan base-package="com.Riven.ssm.action" />
 	<!-- 处理器映射器 -->
-	<!-- <bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" /> -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 	<!-- 处理器适配器 -->
-	<!-- <bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 
-		加入转换器，实现java对象和json转换
+		<!-- 加入转换器，实现java对象和json转换 -->
 		<property name="messageConverters">
 			<list>
-				<bean
-					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
 			</list>
 		</property>
 
-	</bean> -->
+	</bean>
 
 	<!-- 可以使用mvc注解驱动替换上边两行代码 -->
-	<mvc:annotation-driven />
+	<!-- <mvc:annotation-driven /> --><!-- 
+	<mvc:default-servlet-handler/>
+	<context:annotation-config></context:annotation-config> -->
 
 
 	<!-- 视图解析 解析jsp视图，默认支持jstl标签 -->

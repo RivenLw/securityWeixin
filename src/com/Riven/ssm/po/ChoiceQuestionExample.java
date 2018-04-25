@@ -68,7 +68,7 @@ public class ChoiceQuestionExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-04-21
+     * @date 2018-04-25
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -740,6 +740,76 @@ public class ChoiceQuestionExample {
             addCriterion("ISDELETE not between", value1, value2, "isdelete");
             return (Criteria) this;
         }
+
+        public Criteria andQuestionContentIsNull() {
+            addCriterion("QUESTION_CONTENT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentIsNotNull() {
+            addCriterion("QUESTION_CONTENT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentEqualTo(String value) {
+            addCriterion("QUESTION_CONTENT =", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentNotEqualTo(String value) {
+            addCriterion("QUESTION_CONTENT <>", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentGreaterThan(String value) {
+            addCriterion("QUESTION_CONTENT >", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentGreaterThanOrEqualTo(String value) {
+            addCriterion("QUESTION_CONTENT >=", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentLessThan(String value) {
+            addCriterion("QUESTION_CONTENT <", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentLessThanOrEqualTo(String value) {
+            addCriterion("QUESTION_CONTENT <=", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentLike(String value) {
+            addCriterion("QUESTION_CONTENT like", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentNotLike(String value) {
+            addCriterion("QUESTION_CONTENT not like", value, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentIn(List<String> values) {
+            addCriterion("QUESTION_CONTENT in", values, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentNotIn(List<String> values) {
+            addCriterion("QUESTION_CONTENT not in", values, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentBetween(String value1, String value2) {
+            addCriterion("QUESTION_CONTENT between", value1, value2, "questionContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionContentNotBetween(String value1, String value2) {
+            addCriterion("QUESTION_CONTENT not between", value1, value2, "questionContent");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -754,7 +824,7 @@ public class ChoiceQuestionExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-04-21
+     * @date 2018-04-25
      */
     public static class Criterion {
         private String condition;
