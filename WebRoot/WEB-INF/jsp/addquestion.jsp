@@ -171,15 +171,92 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         /*选择题表单重置*/
         function xzreset(){
-        	alert('准备重置选择题表单');
+        	$("#xz_questionContent").val('');
+        	$("#optionA").val('');
+        	$("#optionB").val('');
+        	$("#optionC").val('');
+        	$("#optionD").val('');
+        	$('input:radio[name="trueopt"]:checked').prop("checked", false);
+        	$("#xz_solution").val('');
         }
         
         /*判断题表单保存*/
         function pdsave(){
+        	if(!pdvalidate()){
+				return false;
+			};
+			
+			var questionContent = $("#pd_questionContent").val();
+        	var answer = $('input:radio[name="answer"]:checked').val();
+        	var solution = $("#pd_solution").val();
+        	
+        	var json = '{"questionContent":"'+questionContent
+			        	+'","answer":"'+answer
+			        	+'","solution":"'+solution+'"}'
+			
+			
+			$.ajax({
+                    url: "question/savetorfquestion.action",
+                    type: "post",
+                    contentType:'application/json;charset=utf-8',
+                    data: json,
+                    success: function (data) {
+                        if(data.indexOf("true")>-1){
+                        	weui.toast('保存成功', {
+							    duration: 3000,
+							    callback: function(){pdreset()}
+							});
+			            }else{
+			            	weui.alert('保存失败，请稍后再试');
+			            }
+                    },
+                    error: function () {
+                        weui.alert('保存失败，请稍后再试');
+                    }
+                });
+			
+        }
+        /*判断题表单校验*/
+        function pdvalidate(){
+        	var questionContent = $("#pd_questionContent").val();
+        	var answer = $('input:radio[name="answer"]:checked').val();
+        	var solution = $("#pd_solution").val();
+        
+        	if(questionContent==''||questionContent.length<1){
+		    	weui.alert('题目不能为空');
+		    	return false;
+		    };
+		    if(questionContent.length>50){
+		        weui.alert('题目不能超过50字');
+		        return false;
+		    };
+		    if(valichar(questionContent)){
+		        weui.alert('题目不能含有特殊字符');
+		        return false;
+		    };
+		    
+		    if(answer==undefined){
+		        weui.alert('请选择正确答案');
+		        return false;
+		    }
+		    
+		    if(solution.length>200){
+		        weui.alert('题目解析不能超过200字');
+		        return false;
+		    };
+		    if(valichar(solution)){
+		        weui.alert('题目解析不能含有特殊字符');
+		        return false;
+		    };
+        	
+        	return true;
         	
         }
         /*判断题表单重置*/
         function pdreset(){
+        	$("#pd_questionContent").val('');
+        	$('input:radio[name="answer"]:checked').prop("checked", false);
+        	$("#pd_solution").val('');
         	
         }
         

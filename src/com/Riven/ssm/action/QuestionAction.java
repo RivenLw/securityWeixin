@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Riven.ssm.po.ChoiceQuestion;
+import com.Riven.ssm.po.TorfQuestion;
 import com.Riven.ssm.service.ChoiceQuestionService;
+import com.Riven.ssm.service.TorfQuestionService;
 
 @Controller
 @RequestMapping("/question")
@@ -16,6 +18,8 @@ public class QuestionAction {
 
 	@Autowired
 	ChoiceQuestionService choiceQuestionService;
+	@Autowired
+	TorfQuestionService torfQuestionService;
 	
 	@RequestMapping("/addquestion")
 	public String addQuestion(Model model){
@@ -26,7 +30,21 @@ public class QuestionAction {
 	public @ResponseBody String saveChoiceQuestion(@RequestBody ChoiceQuestion question){
 		
 		try {
-			boolean flag = true; //choiceQuestionService.insertChoiceQuestion(question);
+			boolean flag = choiceQuestionService.insertChoiceQuestion(question);
+			return String.valueOf(flag);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return "false";
+		}
+		
+	}
+	@RequestMapping("/savetorfquestion")
+	public @ResponseBody String saveTorfQuestion(@RequestBody TorfQuestion torfQuestion){
+		
+		try {
+			boolean flag = torfQuestionService.insertTorfQuestion(torfQuestion);
 			return String.valueOf(flag);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
