@@ -25,4 +25,7 @@
  <bean id="torfQuestionService" class="com.Riven.ssm.service.impl.TorfQuestionServiceImpl"/>
 <!-- 系统操作记录管理的service -->
  <bean id="sysoptRecordService" class="com.Riven.ssm.service.impl.SysoptRecordServiceImpl"/>
+<!-- 微信接入service -->
+ <bean id="wechatService" class="com.Riven.ssm.service.impl.WechatServiceImpl"/>
+ 
 </beans>
