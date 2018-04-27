@@ -1,5 +1,7 @@
 package com.Riven.ssm.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +23,16 @@ public class QuestionAction {
 	@Autowired
 	TorfQuestionService torfQuestionService;
 
-/*	@RequestMapping("/addquestion")
+	@RequestMapping("/addquestion")
 	public String addQuestion(Model model) {
 		return "addquestion";
-	}*/
+	}
 
 	@RequestMapping("/savechoicequestion")
 	public @ResponseBody String saveChoiceQuestion(@RequestBody ChoiceQuestion question) {
 
 		try {
-			boolean flag = true;//choiceQuestionService.insertChoiceQuestion(question);
+			boolean flag = choiceQuestionService.insertChoiceQuestion(question);
 			return String.valueOf(flag);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -45,7 +47,7 @@ public class QuestionAction {
 	public @ResponseBody String saveTorfQuestion(@RequestBody TorfQuestion torfQuestion) {
 
 		try {
-			boolean flag = true;//torfQuestionService.insertTorfQuestion(torfQuestion);
+			boolean flag = torfQuestionService.insertTorfQuestion(torfQuestion);
 			return String.valueOf(flag);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -55,5 +57,39 @@ public class QuestionAction {
 		}
 
 	}
+	
+	@RequestMapping("/lookquestion")
+	public String getAllQuestion(Model model) {//题目管理
+		
+		try {
+			List<ChoiceQuestion> choList = choiceQuestionService.findChoiceQuestionList();
+			List<TorfQuestion> torfList = torfQuestionService.findTorfQuestionList();
+			
+			model.addAttribute("choList", choList);
+			model.addAttribute("torfList", torfList);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "lookquestion";
+	}
+	
+	@RequestMapping("/editxzquestion")
+	public String editxzquestion(String questionId,Model model){//根据传来的ID获取到题目后，跳转到编辑选择题的页面
+		
+		try {
+			ChoiceQuestion editxzquestion = choiceQuestionService.findChoiceQuestionById(questionId);
+			System.out.println(editxzquestion);
+			model.addAttribute("editxzquestion", editxzquestion);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "editxzquestion";
+	}
+	
 
 }

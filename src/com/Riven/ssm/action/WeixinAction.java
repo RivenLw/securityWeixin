@@ -109,7 +109,7 @@ public class WeixinAction {
 			e.printStackTrace();
 		}
 		
-		return "thanks";
+		return "addquestion";
 	}
 
 }
