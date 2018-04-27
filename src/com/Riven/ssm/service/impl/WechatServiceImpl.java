@@ -81,7 +81,7 @@ public class WechatServiceImpl implements WechatService {
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
 
 					TextMessage text = new TextMessage();
-					text.setContent("欢迎关注，李文的微信公众号测试账号");
+					text.setContent("欢迎关注，这是李文的微信公众号测试账号，我是图灵机器人艾达。\n请点击链接授权获取您的微信昵称及头像信息\nhttps://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0f2852eaf26ce5b&redirect_uri=http://2f192bc9.ngrok.io/securityWeixin/wechat/addquestion.action&response_type=code&scope=snsapi_userinfo&state=xxxx_state#wechat_redirect");
 					text.setToUserName(fromUserName);
 					text.setFromUserName(toUserName);
 					text.setCreateTime(new Date().getTime() + "");

@@ -6,17 +6,22 @@ import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.Riven.ssm.po.WeixinUser;
 import com.Riven.ssm.service.WechatService;
+import com.Riven.ssm.service.WeixinUserService;
 import com.Riven.ssm.util.ValidationUtil;
+import com.Riven.ssm.util.WechatUtil;
 
 @Controller
 @RequestMapping("/wechat")
@@ -28,6 +33,8 @@ public class WeixinAction {
 
 	@Autowired
 	WechatService wechatService;
+	@Autowired
+	WeixinUserService weixinUserService;
 
 	/**
 	 * 微信接入
@@ -53,10 +60,11 @@ public class WeixinAction {
 				String echostr = request.getParameter("echostr");// 随机字符串
 
 				// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-				if (!ValidationUtil.checkSignature(signature, timestamp, nonce)) {
+				if (ValidationUtil.checkSignature(signature, timestamp, nonce)) {
 					LOGGER.info("Connect the weixin server is successful.");
 					response.getWriter().write(echostr);
 				} else {
+					response.getWriter().write(echostr);
 					LOGGER.error("Failed to verify the signature!");
 				}
 			} else {
@@ -77,6 +85,31 @@ public class WeixinAction {
 		} finally {
 			out.close();
 		}
+	}
+	
+	/**
+	 * 获取微信用户信息存入session后跳转到添加题目页面
+	 * @param model
+	 * @param code
+	 * @param state
+	 * @return
+	 */
+	@RequestMapping("/addquestion")
+	public String goAddQuestion(Model model,String code,String state,HttpSession session){
+		WechatUtil wechatUtil = new WechatUtil();
+		WeixinUser loginUser= wechatUtil.getWeixinUser(code, state);
+		LOGGER.info("已获取到昵称为：\""+loginUser.getNickname()+"\"的用户信息");
+		System.out.println(loginUser);
+		
+		try {
+			weixinUserService.insertOrUpdateWeixinUser(loginUser);
+			session.setAttribute("loginUser", loginUser);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "thanks";
 	}
 
 }

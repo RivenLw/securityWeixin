@@ -21,16 +21,16 @@ public class QuestionAction {
 	@Autowired
 	TorfQuestionService torfQuestionService;
 
-	@RequestMapping("/addquestion")
+/*	@RequestMapping("/addquestion")
 	public String addQuestion(Model model) {
 		return "addquestion";
-	}
+	}*/
 
 	@RequestMapping("/savechoicequestion")
 	public @ResponseBody String saveChoiceQuestion(@RequestBody ChoiceQuestion question) {
 
 		try {
-			boolean flag = choiceQuestionService.insertChoiceQuestion(question);
+			boolean flag = true;//choiceQuestionService.insertChoiceQuestion(question);
 			return String.valueOf(flag);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -45,7 +45,7 @@ public class QuestionAction {
 	public @ResponseBody String saveTorfQuestion(@RequestBody TorfQuestion torfQuestion) {
 
 		try {
-			boolean flag = torfQuestionService.insertTorfQuestion(torfQuestion);
+			boolean flag = true;//torfQuestionService.insertTorfQuestion(torfQuestion);
 			return String.valueOf(flag);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

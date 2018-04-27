@@ -107,4 +107,13 @@ public class WeixinUser {
     public void setAdmin(String admin) {
         this.admin = admin == null ? null : admin.trim();
     }
+
+	@Override
+	public String toString() {
+		return "WeixinUser [openid=" + openid + ", nickname=" + nickname + ", sex=" + sex + ", province=" + province
+				+ ", city=" + city + ", country=" + country + ", headimgurl=" + headimgurl + ", privilege=" + privilege
+				+ ", unionid=" + unionid + ", admin=" + admin + "]";
+	}
+    
+    
 }
