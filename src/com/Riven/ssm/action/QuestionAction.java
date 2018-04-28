@@ -2,11 +2,14 @@ package com.Riven.ssm.action;
 
 import java.util.List;
 
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Riven.ssm.po.ChoiceQuestion;
@@ -24,12 +27,12 @@ public class QuestionAction {
 	TorfQuestionService torfQuestionService;
 
 	@RequestMapping("/addquestion")
-	public String addQuestion(Model model) {
+	public String addQuestion(Model model) {//跳转到添加题目界面
 		return "addquestion";
 	}
 
 	@RequestMapping("/savechoicequestion")
-	public @ResponseBody String saveChoiceQuestion(@RequestBody ChoiceQuestion question) {
+	public @ResponseBody String saveChoiceQuestion(@RequestBody ChoiceQuestion question) {//保存选择题
 
 		try {
 			boolean flag = choiceQuestionService.insertChoiceQuestion(question);
@@ -43,8 +46,22 @@ public class QuestionAction {
 
 	}
 
+	@RequestMapping("/updatachoicequestion")
+	public @ResponseBody String updatachoicequestion(@RequestBody ChoiceQuestion question) {//修改选择题
+		
+		try {
+			boolean flag = choiceQuestionService.updateChoiceQuestion(question);
+			return String.valueOf(flag);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return "false";
+		}
+		
+	}
 	@RequestMapping("/savetorfquestion")
-	public @ResponseBody String saveTorfQuestion(@RequestBody TorfQuestion torfQuestion) {
+	public @ResponseBody String saveTorfQuestion(@RequestBody TorfQuestion torfQuestion) {//保存判断题
 
 		try {
 			boolean flag = torfQuestionService.insertTorfQuestion(torfQuestion);
@@ -59,7 +76,7 @@ public class QuestionAction {
 	}
 	
 	@RequestMapping("/lookquestion")
-	public String getAllQuestion(Model model) {//题目管理
+	public String getAllQuestion(Model model) {//跳转题目管理页面
 		
 		try {
 			List<ChoiceQuestion> choList = choiceQuestionService.findChoiceQuestionList();
@@ -91,5 +108,19 @@ public class QuestionAction {
 		return "editxzquestion";
 	}
 	
+	@RequestMapping(value = "/deletechoicequestion", method = { RequestMethod.POST })
+	public @ResponseBody String deletechoicequestion(@RequestBody ChoiceQuestion question,Model model){//根据传来的ID删除题目
+		
+		try {
+			boolean flag = choiceQuestionService.deleteChoiceQuestionById(question.getQuestionId());
+			return String.valueOf(flag);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			return "false";
+		}
+		
+	}
 
 }

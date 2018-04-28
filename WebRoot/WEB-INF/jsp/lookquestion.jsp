@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.Riven.ssm.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.Riven.ssm.util.Peizhi" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <%
@@ -64,7 +64,6 @@ String waiUrl = Peizhi.waiUrl;
                     <table id="xztable" class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>题目编号</th>
                                 <th>题目内容</th>
                                 <th>操作</th>
@@ -72,19 +71,20 @@ String waiUrl = Peizhi.waiUrl;
                         </thead>
                         <tbody>
                         	<c:forEach var="choques" items="${choList}" varStatus="status">
-	                            <tr>
-	                                <td>${status.index }</td>
-	                                <td>${choques.questionId }</td>
-	                                <td>
-		                                <c:if test="${fn:length(choques.questionContent)>10 }">  
-					                         ${fn:substring(choques.questionContent, 0, 10)}...
-					                   	</c:if>
-					                   	<c:if test="${fn:length(choques.questionContent)<=10 }">  
-					                         ${choques.questionContent}
-					                   	</c:if>
-                  				 	</td>
-	                                <td><a href="http://<%=waiUrl %>/securityWeixin/question/editxzquestion.action?questionId=${choques.questionId }" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a></td>
-	                            </tr>
+                        		<c:if test="${choques.isdelete!='已删除' }"> 
+		                            <tr>
+		                                <td>${choques.questionId }</td>
+		                                <td>
+			                                <c:if test="${fn:length(choques.questionContent)>10 }">  
+						                         ${fn:substring(choques.questionContent, 0, 10)}...
+						                   	</c:if>
+						                   	<c:if test="${fn:length(choques.questionContent)<=10 }">  
+						                         ${choques.questionContent}
+						                   	</c:if>
+	                  				 	</td>
+		                                <td><a href="http://<%=waiUrl %>/securityWeixin/question/editxzquestion.action?questionId=${choques.questionId }" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a></td>
+		                            </tr>
+	                            </c:if>
 							</c:forEach> 
                         </tbody>
                     </table>
@@ -94,7 +94,6 @@ String waiUrl = Peizhi.waiUrl;
                     <table id="pdtable" class="table table-striped">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>题目编号</th>
                             <th>题目内容</th>
                             <th>操作</th>
@@ -103,7 +102,6 @@ String waiUrl = Peizhi.waiUrl;
                         <tbody>
                         <c:forEach var="torfques" items="${torfList}" varStatus="status">
 	                            <tr>
-	                                <td>${status.index }</td>
 	                                <td>${torfques.questionId }</td>
 	                                <td>
 		                                <c:if test="${fn:length(torfques.questionContent)>10 }">  
