@@ -100,19 +100,21 @@ String waiUrl = Peizhi.waiUrl;
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="torfques" items="${torfList}" varStatus="status">
-	                            <tr>
-	                                <td>${torfques.questionId }</td>
-	                                <td>
-		                                <c:if test="${fn:length(torfques.questionContent)>10 }">  
-					                         ${fn:substring(torfques.questionContent, 0, 10)}...
-					                   	</c:if>
-					                   	<c:if test="${fn:length(torfques.questionContent)<=10 }">  
-					                         ${torfques.questionContent}
-					                   	</c:if>
-                  				 	</td>
-	                                <td><a href="http://<%=waiUrl %>/securityWeixin/question/editpdquestion.action?questionId=${torfques.questionId }" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a></td>
-	                            </tr>
+                        	<c:forEach var="torfques" items="${torfList}" varStatus="status">
+	                        	<c:if test="${torfques.isdelete!='已删除' }"> 
+		                            <tr>
+		                                <td>${torfques.questionId }</td>
+		                                <td>
+			                                <c:if test="${fn:length(torfques.questionContent)>10 }">  
+						                         ${fn:substring(torfques.questionContent, 0, 10)}...
+						                   	</c:if>
+						                   	<c:if test="${fn:length(torfques.questionContent)<=10 }">  
+						                         ${torfques.questionContent}
+						                   	</c:if>
+	                  				 	</td>
+		                                <td><a href="http://<%=waiUrl %>/securityWeixin/question/editpdquestion.action?questionId=${torfques.questionId }" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a></td>
+		                            </tr>
+		                         </c:if>
 							</c:forEach>
                         </tbody>
                     </table>

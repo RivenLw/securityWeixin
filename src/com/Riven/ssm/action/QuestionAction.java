@@ -75,6 +75,20 @@ public class QuestionAction {
 
 	}
 	
+	@RequestMapping("/updatatorfquestion")
+	public @ResponseBody String updatatorfquestion(@RequestBody TorfQuestion torfQuestion) {//修改判断题
+		
+		try {
+			boolean flag = torfQuestionService.updateTorfQuestion(torfQuestion);
+			return String.valueOf(flag);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return "false";
+		}
+		
+	}
 	@RequestMapping("/lookquestion")
 	public String getAllQuestion(Model model) {//跳转题目管理页面
 		
@@ -108,6 +122,20 @@ public class QuestionAction {
 		return "editxzquestion";
 	}
 	
+	@RequestMapping("/editpdquestion")
+	public String editpdquestion(String questionId,Model model){//根据传来的ID获取到题目后，跳转到编辑判断题的页面
+		
+		try {
+			TorfQuestion editpdquestion = torfQuestionService.findTorfQuestionById(questionId);
+			System.out.println(editpdquestion);
+			model.addAttribute("editpdquestion", editpdquestion);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "editpdquestion";
+	}
 	@RequestMapping(value = "/deletechoicequestion", method = { RequestMethod.POST })
 	public @ResponseBody String deletechoicequestion(@RequestBody ChoiceQuestion question,Model model){//根据传来的ID删除题目
 		
@@ -123,4 +151,18 @@ public class QuestionAction {
 		
 	}
 
+	@RequestMapping(value = "/deletetorfquestion", method = { RequestMethod.POST })
+	public @ResponseBody String deletetorfquestion(@RequestBody TorfQuestion question,Model model){//根据传来的ID删除题目
+		
+		try {
+			boolean flag = torfQuestionService.deleteTorfQuestionById(question.getQuestionId());
+			return String.valueOf(flag);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return "false";
+		}
+		
+	}
 }

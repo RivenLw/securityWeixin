@@ -11,7 +11,7 @@ String waiUrl = Peizhi.waiUrl;
   <head>
     <base href="<%=basePath%>">
     
-    <title>新增题目</title>
+    <title>选择题修改</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

@@ -40,7 +40,6 @@ public class WeixinUserServiceImpl implements WeixinUserService {
 				weixinUserMapper.insertSelective(weixinUser);
 				return true;
 			} else {
-				weixinUser.setAdmin("0");
 				return this.updateWeixinUser(weixinUser);
 			}
 		} catch (Exception e) {

@@ -111,5 +111,50 @@ public class WeixinAction {
 		
 		return "addquestion";
 	}
+	
+	/**
+	 * 用户点击菜单后并授权后，进入此action，通过code获取到用户信息后，到数据库找该用户是否有管理员权限，
+	 * 没有权限则跳转到没有权限的界面提示用户
+	 * 有权限则跳转到管理员菜单
+	 * @param model
+	 * @param code
+	 * @param state
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/loginForAdmin")
+	public String loginForAdmin(Model model,String code,String state,HttpSession session){
+		//通过code获取用户信息
+		WechatUtil wechatUtil = new WechatUtil();
+		WeixinUser loginUser= wechatUtil.getWeixinUser(code, state);
+		LOGGER.info("已获取到昵称为：\""+loginUser.getNickname()+"\"的用户信息");
+		System.out.println(loginUser);
+		
+		//根据openid查询是否有管理员权限
+		try {
+			WeixinUser resultUser = weixinUserService.findWeixinUserByOpenid(loginUser.getOpenid());
+			
+			if (resultUser!=null) {
+				if (resultUser.getAdmin().equals("1")) {//有管理员权限
+					loginUser.setAdmin("1");
+					weixinUserService.insertOrUpdateWeixinUser(loginUser);
+					session.setAttribute("loginUser", loginUser);
+					return "adminMenu";
+				} else {//没有管理员权限
+					weixinUserService.insertOrUpdateWeixinUser(loginUser);
+					return "noAdmin";
+				}
+			} else {//数据库中找不到此用户
+				weixinUserService.insertOrUpdateWeixinUser(loginUser);
+				return "noAdmin";
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "noAdmin";
+		}
+		
+	}
 
 }
