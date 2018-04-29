@@ -2,6 +2,7 @@ package com.Riven.ssm.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.Riven.ssm.po.ChoiceQuestion;
+import com.Riven.ssm.po.TorfQuestion;
 import com.Riven.ssm.po.WeixinUser;
+import com.Riven.ssm.service.ChoiceQuestionService;
+import com.Riven.ssm.service.TorfQuestionService;
 import com.Riven.ssm.service.WechatService;
 import com.Riven.ssm.service.WeixinUserService;
 import com.Riven.ssm.util.ValidationUtil;
@@ -35,6 +40,10 @@ public class WeixinAction {
 	WechatService wechatService;
 	@Autowired
 	WeixinUserService weixinUserService;
+	@Autowired
+	ChoiceQuestionService choiceQuestionService;
+	@Autowired
+	TorfQuestionService torfQuestionService;
 
 	/**
 	 * 微信接入
@@ -107,6 +116,7 @@ public class WeixinAction {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		
 		return "addquestion";
@@ -156,5 +166,42 @@ public class WeixinAction {
 		}
 		
 	}
+	
+	/**
+	 * 通过微信授权后获得code，通过code获取用户信息后存入数据库存入session，
+	 * 获取未删除的选择题和填空题，存入model，
+	 * @param model
+	 * @param code
+	 * @param state
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/answerStart")
+	public String answerStart(Model model,String code,String state,HttpSession session){
+		//通过code获取用户信息
+		WechatUtil wechatUtil = new WechatUtil();
+		WeixinUser loginUser= wechatUtil.getWeixinUser(code, state);
+		LOGGER.info("已获取到昵称为：\""+loginUser.getNickname()+"\"的用户信息");
+		System.out.println(loginUser);
+		
+		try {
+			weixinUserService.insertOrUpdateWeixinUser(loginUser);
+			session.setAttribute("loginUser", loginUser);
+			
+			//获取题目
+			List<ChoiceQuestion> xzqueslist = choiceQuestionService.findChoiceQuestionNoDelete();
+			List<TorfQuestion> pdqueslist = torfQuestionService.findTorfQuestionNoDelete();
+			model.addAttribute("xzqueslist", xzqueslist);
+			model.addAttribute("pdqueslist", pdqueslist);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+		
+		return "answerStart";
+	}
+	
 
 }

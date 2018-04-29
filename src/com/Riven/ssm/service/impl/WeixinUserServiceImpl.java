@@ -52,7 +52,7 @@ public class WeixinUserServiceImpl implements WeixinUserService {
 	@Override
 	public boolean updateWeixinUser(WeixinUser weixinUser) throws Exception {
 		// TODO Auto-generated method stub
-		int result = weixinUserMapper.updateByPrimaryKey(weixinUser);
+		int result = weixinUserMapper.updateByPrimaryKeySelective(weixinUser);
 		if (result==0) {
 			return false;
 		} else {

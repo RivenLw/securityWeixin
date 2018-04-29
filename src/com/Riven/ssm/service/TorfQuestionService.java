@@ -18,5 +18,7 @@ public interface TorfQuestionService {
 	public List<TorfQuestion> findTorfQuestionList() throws Exception;
 	//根据id数组查询判断题
 	public List<TorfQuestion> findTorfQuestionByIdList(List<String> idStrings) throws Exception;
+	//查询没有被删除的判断题
+	public List<TorfQuestion> findTorfQuestionNoDelete() throws Exception;
 	
 }

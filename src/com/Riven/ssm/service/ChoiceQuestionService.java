@@ -19,5 +19,7 @@ public interface ChoiceQuestionService {
 	public List<ChoiceQuestion> findChoiceQuestionList() throws Exception;
 	//根据id数据查询对应选择题
 	public List<ChoiceQuestion> findChoiceQuestionByIdArray(ArrayList<String> idStrings) throws Exception;
+	//查询所有没有被删除的选择题
+	public List<ChoiceQuestion> findChoiceQuestionNoDelete() throws Exception;
 	
 }

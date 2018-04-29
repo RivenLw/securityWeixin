@@ -35,8 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
     <div id="root">
-        <i class="weui-icon-info weui-icon_msg"></i>
-        <p>对不起，您没有管理员权限</p>
+        <i class="weui-icon-warn weui-icon_msg"></i>
+        <p>网络异常，请稍后再试</p>
     </div>
 
 </body>

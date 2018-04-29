@@ -73,4 +73,16 @@ public class TorfQuestionServiceImpl implements TorfQuestionService {
 		return torfQuestionMapper.selectByExample(torfQuestionExample);
 	}
 
+	@Override
+	public List<TorfQuestion> findTorfQuestionNoDelete() throws Exception {
+		TorfQuestionExample example = new TorfQuestionExample();
+		TorfQuestionExample.Criteria criteria = example.createCriteria();
+		TorfQuestionExample.Criteria criteria1 = example.createCriteria();
+		criteria.andIsdeleteNotLike("已删除");
+		criteria1.andIsdeleteIsNull();
+		example.or(criteria1);
+		
+		return torfQuestionMapper.selectByExample(example);
+	}
+
 }

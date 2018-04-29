@@ -102,6 +102,7 @@ public class QuestionAction {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 
 		return "lookquestion";
@@ -117,6 +118,7 @@ public class QuestionAction {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		
 		return "editxzquestion";
@@ -132,6 +134,7 @@ public class QuestionAction {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		
 		return "editpdquestion";

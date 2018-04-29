@@ -74,4 +74,16 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 		return choiceQuestionMapper.selectByExample(choiceQuestionExample);
 	}
 
+	@Override
+	public List<ChoiceQuestion> findChoiceQuestionNoDelete() throws Exception {
+		ChoiceQuestionExample example = new ChoiceQuestionExample();
+		ChoiceQuestionExample.Criteria criteria = example.createCriteria();
+		ChoiceQuestionExample.Criteria criteria1 = example.createCriteria();
+		criteria.andIsdeleteNotLike("已删除");
+		criteria1.andIsdeleteIsNull();
+		example.or(criteria1);
+		
+		return choiceQuestionMapper.selectByExample(example);
+	}
+
 }

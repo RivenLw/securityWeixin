@@ -40,6 +40,9 @@ public class CreateWeixinMenu {
 				//第三个父菜单的第一个子菜单
 				ViewButton three_onesubButton = new ViewButton("管理", "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0f2852eaf26ce5b&redirect_uri=http://"+Peizhi.waiUrl+"/securityWeixin/wechat/loginForAdmin.action&response_type=code&scope=snsapi_userinfo&state=xxxx_state#wechat_redirect");
 				three_subrootButtons.add(three_onesubButton);
+				//第三个父菜单的第二个子菜单
+				ViewButton three_twosubButton = new ViewButton("开始答题", "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0f2852eaf26ce5b&redirect_uri=http://"+Peizhi.waiUrl+"/securityWeixin/wechat/answerStart.action&response_type=code&scope=snsapi_userinfo&state=xxxx_state#wechat_redirect");
+				three_subrootButtons.add(three_twosubButton);
 			threeButton.setSubButton(three_subrootButtons);
 		rootButtons.add(threeButton);
 		
