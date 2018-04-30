@@ -2,6 +2,9 @@ package com.Riven.ssm.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -191,8 +194,16 @@ public class WeixinAction {
 			//获取题目
 			List<ChoiceQuestion> xzqueslist = choiceQuestionService.findChoiceQuestionNoDelete();
 			List<TorfQuestion> pdqueslist = torfQuestionService.findTorfQuestionNoDelete();
+			Collections.shuffle(xzqueslist);
+			Collections.shuffle(pdqueslist);
 			model.addAttribute("xzqueslist", xzqueslist);
 			model.addAttribute("pdqueslist", pdqueslist);
+			
+			//开始时间
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String startTime = simpleDateFormat.format(new Date());
+			
+			model.addAttribute("startTime", startTime);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
