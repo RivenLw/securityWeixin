@@ -32,6 +32,7 @@ public class AnswerAction {
 		String endTime = simpleDateFormat.format(new Date());
 		
 		answerRecord.setEndTime(endTime);
+		answerRecord.setAnswerStatus("已完成");
 		
 		try {
 			boolean flag = answerRecordService.insertAnswerRecord(answerRecord);

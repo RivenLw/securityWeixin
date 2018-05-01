@@ -286,7 +286,7 @@ String waiUrl = Peizhi.waiUrl;
                                 <i class="weui-icon-checked"></i>
                             </div>
                             <div class="weui-cell__bd">
-                                <p>${choques.optionA }</p>
+                                <p>A：${choques.optionA }</p>
                             </div>
                         </label>
                         <label class="weui-cell weui-check__label">
@@ -295,7 +295,7 @@ String waiUrl = Peizhi.waiUrl;
                                 <i class="weui-icon-checked"></i>
                             </div>
                             <div class="weui-cell__bd">
-                                <p>${choques.optionB }</p>
+                                <p>B：${choques.optionB }</p>
                             </div>
                         </label>
                         <label class="weui-cell weui-check__label">
@@ -304,7 +304,7 @@ String waiUrl = Peizhi.waiUrl;
                                 <i class="weui-icon-checked"></i>
                             </div>
                             <div class="weui-cell__bd">
-                                <p>${choques.optionC }</p>
+                                <p>C：${choques.optionC }</p>
                             </div>
                         </label>
                         <label class="weui-cell weui-check__label">
@@ -313,7 +313,7 @@ String waiUrl = Peizhi.waiUrl;
                                 <i class="weui-icon-checked"></i>
                             </div>
                             <div class="weui-cell__bd">
-                                <p>${choques.optionD }</p>
+                                <p>D：${choques.optionD }</p>
                             </div>
                         </label>
 

@@ -81,7 +81,7 @@ public class WechatServiceImpl implements WechatService {
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
 
 					TextMessage text = new TextMessage();
-					text.setContent("欢迎关注，这是李文的微信公众号测试账号，我是图灵机器人艾达。");
+					text.setContent("欢迎关注，这是李文的微信公众号测试账号，我是图灵机器人小艾。");
 					text.setToUserName(fromUserName);
 					text.setFromUserName(toUserName);
 					text.setCreateTime(new Date().getTime() + "");
