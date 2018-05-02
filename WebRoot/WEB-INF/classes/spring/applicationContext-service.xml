@@ -27,5 +27,7 @@
  <bean id="sysoptRecordService" class="com.Riven.ssm.service.impl.SysoptRecordServiceImpl"/>
 <!-- 微信接入service -->
  <bean id="wechatService" class="com.Riven.ssm.service.impl.WechatServiceImpl"/>
+<!-- 举报记录service -->
+ <bean id="jubaoRecordServicer" class="com.Riven.ssm.service.impl.JubaoRecordServiceImpl"/>
  
 </beans>

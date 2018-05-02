@@ -54,8 +54,9 @@ String waiUrl = Peizhi.waiUrl;
             </div>
         </div>
         <div id="menu">
-            <a href="http://<%=waiUrl %>/securityWeixin/question/addquestion.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;margin-top: 20%" class="weui-btn weui-btn_primary">新增题目</a>
-            <a href="http://<%=waiUrl %>/securityWeixin/question/lookquestion.action" style="margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">题目管理</a>
+            <a href="http://<%=waiUrl %>/securityWeixin/question/addquestion.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;margin-top: 15%" class="weui-btn weui-btn_primary">新增题目</a>
+            <a href="http://<%=waiUrl %>/securityWeixin/question/lookquestion.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">题目管理</a>
+            <a href="http://<%=waiUrl %>/securityWeixin/jubao/lookalljubaorecord.action" style="margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">所有举报</a>
         </div>
     </div>
 	 </body>
