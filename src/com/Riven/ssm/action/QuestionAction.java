@@ -168,4 +168,36 @@ public class QuestionAction {
 		}
 		
 	}
+	
+	@RequestMapping("/lookonequestion")
+	public String lookonequestion(String questionId,Model model){//根据传来的ID判断是什么题目类型，取出题目后，跳转到对应查看页面
+		
+		try {
+			
+			String quesType = questionId.substring(0,2);
+			
+			if ("XZ".equals(quesType)) {//是选择题
+				
+				ChoiceQuestion resultques = choiceQuestionService.findChoiceQuestionById(questionId);
+				model.addAttribute("resultques", resultques);
+				
+				return "lookonechoice";
+				
+			}else if ("PD".equals(quesType)) {//是判断题
+				TorfQuestion resultques = torfQuestionService.findTorfQuestionById(questionId);
+				model.addAttribute("resultques", resultques);
+				
+				return "lookonetorf";
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+		
+		return "error";
+	}
+	
 }

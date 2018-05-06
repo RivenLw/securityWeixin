@@ -32,8 +32,8 @@ String waiUrl = Peizhi.waiUrl;
 		body {background-color: #f8f8f8}
         #touandname{
             text-align: center;
-            padding-top: 20%;
-            padding-bottom: 15%;
+            padding-top: 10%;
+            padding-bottom: 5%;
         }
         img{
             width:100px;
@@ -56,7 +56,8 @@ String waiUrl = Peizhi.waiUrl;
         <div id="menu">
             <a href="http://<%=waiUrl %>/securityWeixin/question/addquestion.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;margin-top: 15%" class="weui-btn weui-btn_primary">新增题目</a>
             <a href="http://<%=waiUrl %>/securityWeixin/question/lookquestion.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">题目管理</a>
-            <a href="http://<%=waiUrl %>/securityWeixin/jubao/lookalljubaorecord.action" style="margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">所有举报</a>
+            <a href="http://<%=waiUrl %>/securityWeixin/jubao/lookalljubaorecord.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">所有举报</a>
+            <a href="http://<%=waiUrl %>/securityWeixin/admin/goadminmanage.action" style="margin-bottom: 10%;margin-left: 10px;margin-right: 10px;" class="weui-btn weui-btn_primary">管理员配置</a>
         </div>
     </div>
 	 </body>

@@ -68,6 +68,8 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
 		AnswerRecordExample.Criteria criteria = answerRecordExample.createCriteria();
 		criteria.andOpenidEqualTo(openid);
 		
+		answerRecordExample.setOrderByClause("START_TIME desc");
+		
 		return answerRecordMapper.selectByExample(answerRecordExample);
 	}
 

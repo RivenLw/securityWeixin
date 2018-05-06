@@ -25,9 +25,7 @@ String waiUrl = Peizhi.waiUrl;
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" href="css/weui.min.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/weui.min.js"></script>
     
     <script type="text/javascript">

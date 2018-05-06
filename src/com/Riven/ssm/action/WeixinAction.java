@@ -137,11 +137,18 @@ public class WeixinAction {
 	 */
 	@RequestMapping("/loginForAdmin")
 	public String loginForAdmin(Model model,String code,String state,HttpSession session){
-		//通过code获取用户信息
-		WechatUtil wechatUtil = new WechatUtil();
-		WeixinUser loginUser= wechatUtil.getWeixinUser(code, state);
-		LOGGER.info("已获取到昵称为：\""+loginUser.getNickname()+"\"的用户信息");
-		System.out.println(loginUser);
+		WeixinUser loginUser = null;
+		WeixinUser oldUser = (WeixinUser) session.getAttribute("loginUser");
+		if (oldUser!=null) {
+			loginUser = oldUser;
+		} else {
+			//通过code获取用户信息
+			WechatUtil wechatUtil = new WechatUtil();
+			loginUser= wechatUtil.getWeixinUser(code, state);
+			LOGGER.info("已获取到昵称为：\""+loginUser.getNickname()+"\"的用户信息");
+			System.out.println(loginUser);
+		}
+		
 		
 		//根据openid查询是否有管理员权限
 		try {
@@ -165,7 +172,7 @@ public class WeixinAction {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "noAdmin";
+			return "error";
 		}
 		
 	}

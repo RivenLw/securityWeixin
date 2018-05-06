@@ -24,7 +24,7 @@ public class CreateWeixinMenu {
 		ViewButton one_Button = new ViewButton("百度一下", "https://www.baidu.com/");
 		rootButtons.add(one_Button);
 		//第二个父菜单
-		SingleButton twoButton = new SingleButton("B站");
+		/*SingleButton twoButton = new SingleButton("B站");
 			//第二个父菜单的子菜单的根
 			List<SingleButton> two_subrootButtons = new ArrayList<SingleButton>();
 				//第二个父菜单的第一个子菜单
@@ -32,7 +32,7 @@ public class CreateWeixinMenu {
 				two_subrootButtons.add(two_onesubButton);
 			twoButton.setSubButton(two_subrootButtons);
 		
-		rootButtons.add(twoButton);
+		rootButtons.add(twoButton);*/
 		//第三个父菜单
 		SingleButton threeButton = new SingleButton("我的");
 			//第三个父菜单的子菜单的根
@@ -44,8 +44,11 @@ public class CreateWeixinMenu {
 				ViewButton three_twosubButton = new ViewButton("开始答题", "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0f2852eaf26ce5b&redirect_uri=http://"+Peizhi.waiUrl+"/securityWeixin/wechat/answerStart.action&response_type=code&scope=snsapi_userinfo&state=xxxx_state#wechat_redirect");
 				three_subrootButtons.add(three_twosubButton);
 				//第三个父菜单的第三个子菜单
-				ViewButton three_threesubButton = new ViewButton("我要举报", "http://"+Peizhi.waiUrl+"/securityWeixin/jubao/addjubao.action");
+				ViewButton three_threesubButton = new ViewButton("答题记录", "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0f2852eaf26ce5b&redirect_uri=http://"+Peizhi.waiUrl+"/securityWeixin/answerRecord/lookAllAnswerRecord.action&response_type=code&scope=snsapi_userinfo&state=xxxx_state#wechat_redirect");
 				three_subrootButtons.add(three_threesubButton);
+				//第三个父菜单的第四个子菜单
+				ViewButton three_foursubButton = new ViewButton("我要举报", "http://"+Peizhi.waiUrl+"/securityWeixin/jubao/addjubao.action");
+				three_subrootButtons.add(three_foursubButton);
 			threeButton.setSubButton(three_subrootButtons);
 		rootButtons.add(threeButton);
 		

@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <div id="root">
         <i class="weui-icon-warn weui-icon_msg"></i>
-        <p>网络异常，请稍后再试</p>
+        <p>网络服务器异常，请稍后再试</p>
     </div>
 
 </body>
