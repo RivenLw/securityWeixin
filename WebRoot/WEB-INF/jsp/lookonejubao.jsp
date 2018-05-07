@@ -1,9 +1,10 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.Riven.ssm.util.Peizhi" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String waiUrl = Peizhi.waiUrl;
 %>
 
 <!DOCTYPE html>
@@ -26,6 +27,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="css/weui.min.css">
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="js/weui.min.js"></script>
+    
+    <script type="text/javascript">
+    
+    	$(function(){
+    	
+			var imgsObj = $('img');  
+		    var imgs = new Array();  
+		    for(var i = 0; i < imgsObj.size(); i++){  
+		        imgs.push(imgsObj.eq(i).attr('src'));  
+		    }  
+		      
+		        $('img').on('click',function(){  
+		            WeixinJSBridge.invoke('imagePreview', {  
+		            'current': $(this).attr('src'),  
+		            'urls': imgs  
+		        });  
+		        });
+		    	
+		    	})
+    
+    </script>
     
     <style type="text/css">
         body {background-color: #f8f8f8}
@@ -84,6 +106,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
         </div>
+        
+        <div class="weui-cells__title">举报图片</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<div class="weui-uploader">
+						<div class="weui-uploader__bd">
+							<ul class="weui-uploader__files">
+								<c:forEach var="imageName" items="${jubaoRecord.imageNames }" varStatus="status9">
+									<img  class="weui-uploader__file weui-uploader__file_status" src="http://<%=waiUrl %>/securityWeixin/jubaoImg/${imageName }" alt="">
+								</c:forEach> 
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
     </div>
 </div>

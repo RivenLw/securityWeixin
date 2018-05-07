@@ -1,5 +1,6 @@
 package com.Riven.ssm.action;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Riven.ssm.po.JubaoRecord;
 import com.Riven.ssm.service.JubaoRecordServicer;
+import com.Riven.ssm.util.Base64Util;
 
 @Controller
 @RequestMapping("/jubao")
@@ -28,6 +30,20 @@ public class JubaoAction {
 	public @ResponseBody String saveJubao(@RequestBody JubaoRecord jubaoRecord){
 		
 		try {
+			
+			
+			List<String> base64codes = jubaoRecord.getBase64codes();
+			String images = "";
+			
+			for (String base64code : base64codes) {
+				String fileName = Base64Util.saveImgFromBase64code(base64code)+",";
+				images+=fileName;
+				
+				System.out.println(fileName);
+			}
+			jubaoRecord.setImages(images.substring(0, images.length()-1));
+			
+			
 			boolean flag = jubaoRecordServicer.insertJubaoRecord(jubaoRecord);
 			return String.valueOf(flag);
 		} catch (Exception e) {
@@ -60,6 +76,12 @@ public class JubaoAction {
 		
 		try {
 			JubaoRecord jubaoRecord = jubaoRecordServicer.findJubaoRecoedById(recordid);
+			
+			String images = jubaoRecord.getImages();
+			if (images!=null) {
+				String[] imgStrings = images.split(",");
+				jubaoRecord.setImageNames(Arrays.asList(imgStrings));
+			}
 			
 			model.addAttribute("jubaoRecord", jubaoRecord);
 			

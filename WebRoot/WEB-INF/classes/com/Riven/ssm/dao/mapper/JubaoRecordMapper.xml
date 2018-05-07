@@ -9,6 +9,7 @@
         <result column="NAME" property="name" jdbcType="VARCHAR" />
         <result column="PHONE" property="phone" jdbcType="VARCHAR" />
         <result column="IDCARD" property="idcard" jdbcType="VARCHAR" />
+        <result column="IMAGES" property="images" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Example_Where_Clause" >
@@ -72,7 +73,7 @@
     </sql>
 
     <sql id="Base_Column_List" >
-        RECORD_ID, JUBAO_TYPE, JUBAO_CONTENT, NAME, PHONE, IDCARD
+        RECORD_ID, JUBAO_TYPE, JUBAO_CONTENT, NAME, PHONE, IDCARD, IMAGES
     </sql>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.Riven.ssm.po.JubaoRecordExample" >
@@ -111,11 +112,11 @@
 
     <insert id="insert" parameterType="com.Riven.ssm.po.JubaoRecord" >
         insert into JUBAO_RECORD (RECORD_ID, JUBAO_TYPE, JUBAO_CONTENT, 
-            NAME, PHONE, IDCARD
-            )
+            NAME, PHONE, IDCARD, 
+            IMAGES)
         values (Sequence_jubao.nextval, #{jubaoType,jdbcType=VARCHAR}, #{jubaoContent,jdbcType=VARCHAR}, 
-            #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}
-            )
+            #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+            #{images,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.Riven.ssm.po.JubaoRecord" >
@@ -139,6 +140,9 @@
             <if test="idcard != null" >
                 IDCARD,
             </if>
+            <if test="images != null" >
+                IMAGES,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="recordId == null" >
@@ -158,6 +162,9 @@
             </if>
             <if test="idcard != null" >
                 #{idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="images != null" >
+                #{images,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -190,6 +197,9 @@
             <if test="record.idcard != null" >
                 IDCARD = #{record.idcard,jdbcType=VARCHAR},
             </if>
+            <if test="record.images != null" >
+                IMAGES = #{record.images,jdbcType=VARCHAR},
+            </if>
         </set>
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
@@ -203,7 +213,8 @@
             JUBAO_CONTENT = #{record.jubaoContent,jdbcType=VARCHAR},
             NAME = #{record.name,jdbcType=VARCHAR},
             PHONE = #{record.phone,jdbcType=VARCHAR},
-            IDCARD = #{record.idcard,jdbcType=VARCHAR}
+            IDCARD = #{record.idcard,jdbcType=VARCHAR},
+            IMAGES = #{record.images,jdbcType=VARCHAR}
         <if test="_parameter != null" >
             <include refid="Update_By_Example_Where_Clause" />
         </if>
@@ -227,6 +238,9 @@
             <if test="idcard != null" >
                 IDCARD = #{idcard,jdbcType=VARCHAR},
             </if>
+            <if test="images != null" >
+                IMAGES = #{images,jdbcType=VARCHAR},
+            </if>
         </set>
         where RECORD_ID = #{recordId,jdbcType=DECIMAL}
     </update>
@@ -237,7 +251,8 @@
             JUBAO_CONTENT = #{jubaoContent,jdbcType=VARCHAR},
             NAME = #{name,jdbcType=VARCHAR},
             PHONE = #{phone,jdbcType=VARCHAR},
-            IDCARD = #{idcard,jdbcType=VARCHAR}
+            IDCARD = #{idcard,jdbcType=VARCHAR},
+            IMAGES = #{images,jdbcType=VARCHAR}
         where RECORD_ID = #{recordId,jdbcType=DECIMAL}
     </update>
 </mapper>

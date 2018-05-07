@@ -1,5 +1,7 @@
 package com.Riven.ssm.util;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,8 @@ import com.Riven.ssm.po.WeixinUser;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPObject;
+
+import sun.misc.BASE64Decoder;
 
 public class WechatUtil {
 	
@@ -78,5 +82,7 @@ public class WechatUtil {
         }
         return weixinUser;
     }
+    
+    
 	
 }

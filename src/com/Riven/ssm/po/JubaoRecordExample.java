@@ -68,7 +68,7 @@ public class JubaoRecordExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-05-02
+     * @date 2018-05-07
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -520,6 +520,76 @@ public class JubaoRecordExample {
             addCriterion("IDCARD not between", value1, value2, "idcard");
             return (Criteria) this;
         }
+
+        public Criteria andImagesIsNull() {
+            addCriterion("IMAGES is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesIsNotNull() {
+            addCriterion("IMAGES is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesEqualTo(String value) {
+            addCriterion("IMAGES =", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesNotEqualTo(String value) {
+            addCriterion("IMAGES <>", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesGreaterThan(String value) {
+            addCriterion("IMAGES >", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesGreaterThanOrEqualTo(String value) {
+            addCriterion("IMAGES >=", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesLessThan(String value) {
+            addCriterion("IMAGES <", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesLessThanOrEqualTo(String value) {
+            addCriterion("IMAGES <=", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesLike(String value) {
+            addCriterion("IMAGES like", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesNotLike(String value) {
+            addCriterion("IMAGES not like", value, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesIn(List<String> values) {
+            addCriterion("IMAGES in", values, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesNotIn(List<String> values) {
+            addCriterion("IMAGES not in", values, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesBetween(String value1, String value2) {
+            addCriterion("IMAGES between", value1, value2, "images");
+            return (Criteria) this;
+        }
+
+        public Criteria andImagesNotBetween(String value1, String value2) {
+            addCriterion("IMAGES not between", value1, value2, "images");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -534,7 +604,7 @@ public class JubaoRecordExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-05-02
+     * @date 2018-05-07
      */
     public static class Criterion {
         private String condition;
