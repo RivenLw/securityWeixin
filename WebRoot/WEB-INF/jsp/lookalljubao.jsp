@@ -32,6 +32,79 @@ String waiUrl = Peizhi.waiUrl;
     
     <script type="text/javascript">
         $(function(){
+        	var $searchBar = $('#searchBar'),
+            	$searchResult = $('#searchResult'),
+            	$searchText = $('#searchText'),
+            	$searchInput = $('#searchInput'),
+            	$searchClear = $('#searchClear'),
+            	$searchCancel = $('#searchCancel');
+        	
+        	function hideSearchResult(){
+	            $searchResult.hide();
+	            $searchInput.val('');
+	        }
+	        function cancelSearch(){
+	            hideSearchResult();
+	            $searchBar.removeClass('weui-search-bar_focusing');
+	            $searchText.show();
+	        }
+	
+	        $searchText.on('click', function(){
+	            $searchBar.addClass('weui-search-bar_focusing');
+	            $searchInput.focus();
+	        });
+	        $searchInput
+	            .on('blur', function () {
+	                if(!this.value.length) cancelSearch();
+	            })
+	            .on('input', function(){
+	                if(this.value.length) {
+	                    $searchResult.show();
+	                } else {
+	                    $searchResult.hide();
+	                }
+	            })
+	        ;
+	        $searchClear.on('click', function(){
+	            hideSearchResult();
+	            $searchInput.focus();
+	        });
+	        $searchCancel.on('click', function(){
+	            cancelSearch();
+	            $searchInput.blur();
+	        });
+        	
+        	
+        	//所有tr
+        	var alltr = $("tbody tr");
+        
+            //获取键盘搜索按钮事件
+		    $("#searchInput").on('keypress', function(e) {
+		        var keycode = e.keyCode;
+		        //获取搜索框的值
+		        var searchContent = $(this).val();
+		        if (keycode == '13') {
+		            e.preventDefault();
+		            //请求搜索接口
+		            if (searchContent.trim() == '') {//输入框没有东西则显示所有
+						$.each(alltr,function(index,element){
+							$(element).show();
+						});
+		            } else {
+		                $.each(alltr,function(index,element){
+							var contenttd = $(element).children().eq(1);
+							
+							if(contenttd.attr("value").indexOf(searchContent)>=0){
+								$(element).show();
+							}else{
+								$(element).hide();
+							}
+							
+						});
+		            }
+		        }
+		    });
+            
             
         })
         
@@ -47,7 +120,20 @@ String waiUrl = Peizhi.waiUrl;
 </head>
 <body>
 
-    <div id="root">
+    	<div class="weui-search-bar" id="searchBar">
+            <div class="weui-search-bar__form">
+                <div class="weui-search-bar__box">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required/>
+                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText">
+                    <i class="weui-icon-search"></i>
+                    <span>搜索</span>
+                </label>
+            </div>
+            <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+        </div>
        <div class="">
            <table id="jbtable" class="table table-striped">
                <thead>
@@ -61,7 +147,7 @@ String waiUrl = Peizhi.waiUrl;
                	<c:forEach var="jubao" items="${jubaolist}" varStatus="status">
                      <tr>
                          <td>${jubao.recordId }</td>
-                         <td>
+                         <td value="${jubao.jubaoContent}">
                           <c:if test="${fn:length(jubao.jubaoContent)>10 }">  
                       ${fn:substring(jubao.jubaoContent, 0, 10)}...
                 	</c:if>
@@ -75,7 +161,6 @@ String waiUrl = Peizhi.waiUrl;
                </tbody>
            </table>
        </div>
-    </div>
 
 </body>
 </html>
