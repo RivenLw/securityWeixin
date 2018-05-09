@@ -1,6 +1,7 @@
 package com.Riven.ssm.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.Riven.ssm.po.AnswerRecord;
 
@@ -18,4 +19,6 @@ public interface AnswerRecordService {
 	public boolean updateAnswerRecord(AnswerRecord answerRecord) throws Exception;
 	//根据openid查询记录
 	public List<AnswerRecord> findAnswerRecordByOpenid(String openid) throws Exception;
+	//根据openid查询出所有答错过的题目
+	public Set<String> findWrongQuesByOpenid(String openid) throws Exception;
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Riven.ssm.po.AnswerRecord;
 import com.Riven.ssm.po.AnswerRecordExt;
+import com.Riven.ssm.po.ChoiceQuestion;
+import com.Riven.ssm.po.TorfQuestion;
 import com.Riven.ssm.po.WeixinUser;
 import com.Riven.ssm.service.AnswerRecordService;
+import com.Riven.ssm.service.ChoiceQuestionService;
+import com.Riven.ssm.service.TorfQuestionService;
 import com.Riven.ssm.service.WeixinUserService;
 import com.Riven.ssm.util.WechatUtil;
 
@@ -33,6 +38,10 @@ public class AnswerRecordAction {
 	AnswerRecordService answerRecordService;
 	@Autowired
 	WeixinUserService weixinUserService;
+	@Autowired
+	ChoiceQuestionService choiceQuestionService;
+	@Autowired
+	TorfQuestionService torfQuestionService;
 	
 	//获取用户的所有答题记录后跳转到对应界面
 	@RequestMapping("/lookAllAnswerRecord")
@@ -112,6 +121,50 @@ public class AnswerRecordAction {
 		
 		
 		return "lookAllAnswerRecord";
+	}
+	
+	//错题集查看
+	@RequestMapping("/lookwrongques")
+	public String lookwrongques(Model model,String code,String state,HttpSession session){
+		WeixinUser loginUser = null;
+		WeixinUser oldUser = (WeixinUser) session.getAttribute("loginUser");
+		if (oldUser!=null) {
+			loginUser = oldUser;
+		} else {
+			//通过code获取用户信息
+			WechatUtil wechatUtil = new WechatUtil();
+			loginUser= wechatUtil.getWeixinUser(code, state);
+			LOGGER.info("已获取到昵称为：\""+loginUser.getNickname()+"\"的用户信息");
+			System.out.println(loginUser);
+			session.setAttribute("loginUser", loginUser);
+		}
+		
+		try {
+			Set<String>allwrongquess = answerRecordService.findWrongQuesByOpenid(loginUser.getOpenid());
+			
+			List<ChoiceQuestion> choList = new ArrayList<ChoiceQuestion>();
+			List<TorfQuestion> torfList = new ArrayList<TorfQuestion>();
+			//根据题目编号获取到题目的信息后存入对应list中
+			for (String quesId : allwrongquess) {
+				String quesType = quesId.substring(0, 2);
+				if ("XZ".equals(quesType)) {
+					choList.add(choiceQuestionService.findChoiceQuestionById(quesId));
+				} else {
+					torfList.add(torfQuestionService.findTorfQuestionById(quesId));
+				}
+				
+			}
+			
+			model.addAttribute("choList", choList);
+			model.addAttribute("torfList", torfList);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+		
+		return "lookwrongques";
 	}
 	
 }

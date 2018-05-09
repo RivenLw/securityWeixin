@@ -1,6 +1,8 @@
 package com.Riven.ssm.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -71,6 +73,35 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
 		answerRecordExample.setOrderByClause("START_TIME desc");
 		
 		return answerRecordMapper.selectByExample(answerRecordExample);
+	}
+
+	//根据openid获取到记录中的错题，返回错题编号的set
+	@Override
+	public Set<String> findWrongQuesByOpenid(String openid) throws Exception {
+		AnswerRecordExample answerRecordExample = new AnswerRecordExample();
+		AnswerRecordExample.Criteria criteria = answerRecordExample.createCriteria();
+		criteria.andOpenidEqualTo(openid);
+		
+		
+		List<AnswerRecord> answerRecords = answerRecordMapper.selectByExample(answerRecordExample);
+		
+		Set<String> wrongQuess = new HashSet<String>();
+		
+		for (AnswerRecord answerRecord : answerRecords) {
+			String allFalseQuesStr= answerRecord.getFalseQuestion();
+			if (allFalseQuesStr!=null) {
+				allFalseQuesStr = allFalseQuesStr.substring(0, allFalseQuesStr.length()-1);
+				String[] falseQuess = allFalseQuesStr.split(",");
+				
+				for (String quesId : falseQuess) {
+					wrongQuess.add(quesId);
+				}
+				
+			}
+			
+		}
+		
+		return wrongQuess;
 	}
 
 }
