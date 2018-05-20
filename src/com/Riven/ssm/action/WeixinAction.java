@@ -76,6 +76,7 @@ public class WeixinAction {
 					LOGGER.info("Connect the weixin server is successful.");
 					response.getWriter().write(echostr);
 				} else {
+					System.out.println(echostr);
 					response.getWriter().write(echostr);
 					LOGGER.error("Failed to verify the signature!");
 				}

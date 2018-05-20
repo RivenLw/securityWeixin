@@ -14,7 +14,7 @@ public class ValidationUtil {
         
         //2.将三个参数字符串拼接成一个字符串
         StringBuilder buff = new StringBuilder();
-        for(int i=0;i<buff.length();i++){
+        for(int i=0;i<str.length;i++){
             buff.append(str[i]);
         }
         

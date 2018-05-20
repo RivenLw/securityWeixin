@@ -3,7 +3,6 @@ package com.Riven.ssm.po;
 /**
  * null
  * 
- * @author wcyong
  * 
  * @date 2018-04-21
  */
